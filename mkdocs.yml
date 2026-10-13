@@ -1,0 +1,109 @@
+site_name: Redis Mastery Path
+site_description: A hands-on Redis course — strings, hashes, lists, sets, sorted sets, streams, caching patterns, rate limiting, locks, Lua and functions, JSON and vector search, persistence, replication, Sentinel, Cluster, ACLs and operations.
+site_url: https://sigilipelli.github.io/redis-mastery-path/
+repo_url: https://github.com/sigilipelli/redis-mastery-path
+repo_name: redis-mastery-path
+
+theme:
+  name: material
+  favicon: assets/favicon.svg
+  custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/progress-tracker.css
+
+extra_javascript:
+  - javascripts/progress-tracker.js
+
+nav:
+  - Home: index.md
+  - Privacy Policy: privacy.md
+  - License: license.md
+  - "Level 1 · Redis Foundations":
+      - Overview: level-1/index.md
+      - "01 · What Redis Is: One Thread, Memory & a Local Lab": level-1/01-what-redis-is-and-a-lab.md
+      - "02 · redis-cli & the RESP Protocol": level-1/02-redis-cli-and-resp.md
+      - "03 · Strings, Counters & Expiry": level-1/03-strings-counters-expiry.md
+      - "04 · The Keyspace: Naming, SCAN & Safe Deletes": level-1/04-keyspace-scan-delete.md
+      - "05 · Hashes & Per-Field Expiry": level-1/05-hashes.md
+      - "06 · Lists: Queues, Stacks & Blocking Pops": level-1/06-lists-queues.md
+      - "07 · Sets: Membership, Set Algebra & Random Picks": level-1/07-sets.md
+      - "08 · Sorted Sets: Rankings, Ranges & Time Windows": level-1/08-sorted-sets.md
+      - "09 · Clients: redis-py & node-redis": level-1/09-clients-python-node.md
+      - "10 · Project — URL Shortener with Click Analytics": level-1/10-project-url-shortener.md
+  - "Level 2 · Data Structures in Depth":
+      - Overview: level-2/index.md
+      - "01 · Encodings & Memory": level-2/01-encodings-memory.md
+      - "02 · Bitmaps & Bitfields": level-2/02-bitmaps-bitfields.md
+      - "03 · HyperLogLog, Bloom Filters & Other Sketches": level-2/03-hyperloglog-probabilistic.md
+      - "04 · Geospatial Indexes": level-2/04-geospatial.md
+      - "05 · Streams: An Append-Only Log": level-2/05-streams-basics.md
+      - "06 · Stream Consumer Groups & Recovery": level-2/06-streams-consumer-groups.md
+      - "07 · Pub/Sub, Sharded Pub/Sub & Keyspace Notifications": level-2/07-pubsub-notifications.md
+      - "08 · Transactions: MULTI, EXEC & WATCH": level-2/08-transactions-watch.md
+      - "09 · Lua Scripts & Redis Functions": level-2/09-lua-functions.md
+      - "10 · Project — Game Leaderboard & Activity Feed": level-2/10-project-leaderboard-feed.md
+  - "Level 3 · Caching & Application Patterns":
+      - Overview: level-3/index.md
+      - "01 · Caching Patterns: Cache-Aside to Write-Behind": level-3/01-caching-patterns.md
+      - "02 · maxmemory, Eviction & How Expiry Really Works": level-3/02-eviction-expiry-internals.md
+      - "03 · Cache Stampedes & Invalidation": level-3/03-stampedes-invalidation.md
+      - "04 · Rate Limiting Algorithms": level-3/04-rate-limiting.md
+      - "05 · Distributed Locks & Their Limits": level-3/05-distributed-locks.md
+      - "06 · Sessions & Client-Side Caching": level-3/06-sessions-client-caching.md
+      - "07 · Reliable Job Queues": level-3/07-job-queues.md
+      - "08 · JSON Documents": level-3/08-json-documents.md
+      - "09 · Query Engine: Secondary Indexes & Vector Search": level-3/09-search-vector.md
+      - "10 · Project — Caching & Rate-Limiting Layer for an API": level-3/10-project-api-cache-limiter.md
+  - "Level 4 · Operations & Production":
+      - Overview: level-4/index.md
+      - "01 · Persistence I: RDB Snapshots & fork()": level-4/01-rdb-snapshots.md
+      - "02 · Persistence II: AOF, fsync & Hybrid Persistence": level-4/02-aof-durability.md
+      - "03 · Replication: PSYNC, the Backlog & Consistency": level-4/03-replication.md
+      - "04 · High Availability with Sentinel": level-4/04-sentinel.md
+      - "05 · Redis Cluster: Hash Slots, MOVED & ASK": level-4/05-cluster-architecture.md
+      - "06 · Cluster Operations: Resharding, Scaling & Failover": level-4/06-cluster-operations.md
+      - "07 · Security: ACLs, Protected Mode & TLS": level-4/07-security-acl-tls.md
+      - "08 · Monitoring & Troubleshooting": level-4/08-monitoring-troubleshooting.md
+      - "09 · Versions, Licensing, Valkey & Upgrades": level-4/09-licensing-valkey-upgrades.md
+      - "10 · Capstone — A Secured, Persistent, Failover-Tested Cluster": level-4/10-capstone-production-cluster.md
