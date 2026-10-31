@@ -1,0 +1,2764 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="What Redis really is — an in-memory data structure server with one command thread — plus a throwaway local lab you can rebuild in seconds.">
+      
+      
+      
+        <link rel="canonical" href="https://sigilipelli.github.io/redis-mastery-path/level-1/01-what-redis-is-and-a-lab/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-redis-cli-and-resp/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>01 · What Redis Is: One Thread, Memory & a Local Lab - Redis Mastery Path</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/progress-tracker.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05VBGCXN12"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-05VBGCXN12');
+  </script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Redis Mastery Path">
+  <meta property="og:title" content="01 · What Redis Is: One Thread, Memory & a Local Lab">
+  <meta property="og:description" content="What Redis really is — an in-memory data structure server with one command thread — plus a throwaway local lab you can rebuild in seconds.">
+  <meta property="og:url" content="https://sigilipelli.github.io/redis-mastery-path/level-1/01-what-redis-is-and-a-lab/">
+  <meta property="og:image" content="https://sigilipelli.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="01 · What Redis Is: One Thread, Memory & a Local Lab">
+  <meta name="twitter:description" content="What Redis really is — an in-memory data structure server with one command thread — plus a throwaway local lab you can rebuild in seconds.">
+  <meta name="twitter:image" content="https://sigilipelli.github.io/og-image.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9440969811959397"
+     crossorigin="anonymous"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-9440969811959397",
+      enable_page_level_ads: true
+    });
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Redis Mastery Path",
+    "description": "A hands-on Redis course — strings, hashes, lists, sets, sorted sets, streams, caching patterns, rate limiting, locks, Lua and functions, JSON and vector search, persistence, replication, Sentinel, Cluster, ACLs and operations.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Mastery Path",
+      "sameAs": "https://sigilipelli.github.io/"
+    },
+    "isAccessibleForFree": true,
+    "url": "https://sigilipelli.github.io/redis-mastery-path/level-1/01-what-redis-is-and-a-lab/"
+  }
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "01 \u00b7 What Redis Is: One Thread, Memory \u0026 a Local Lab",
+    "description": "What Redis really is \u2014 an in-memory data structure server with one command thread \u2014 plus a throwaway local lab you can rebuild in seconds.",
+    "url": "https://sigilipelli.github.io/redis-mastery-path/level-1/01-what-redis-is-and-a-lab/",
+    "isPartOf": {
+      "@type": "Course",
+      "name": "Redis Mastery Path",
+      "url": "https://sigilipelli.github.io/redis-mastery-path/"
+    },
+    "isAccessibleForFree": true,
+    "learningResourceType": "Lesson",
+    "inLanguage": "en"
+  }
+  </script>
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#01-what-redis-is-one-thread-memory-a-local-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Redis Mastery Path" class="md-header__button md-logo" aria-label="Redis Mastery Path" data-md-component="logo">
+      <svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redis Mastery Path
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01 · What Redis Is: One Thread, Memory & a Local Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sigilipelli/redis-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    redis-mastery-path
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../privacy/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Privacy Policy
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../license/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  License
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 1 · Redis Foundations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../level-2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 2 · Data Structures in Depth
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../level-3/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 3 · Caching & Application Patterns
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../level-4/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 4 · Operations & Production
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Redis Mastery Path" class="md-nav__button md-logo" aria-label="Redis Mastery Path" data-md-component="logo">
+      <svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg>
+    </a>
+    Redis Mastery Path
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sigilipelli/redis-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    redis-mastery-path
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../privacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 · Redis Foundations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 · Redis Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · What Redis Is: One Thread, Memory & a Local Lab
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · What Redis Is: One Thread, Memory & a Local Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-throwaway-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A throwaway lab
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A throwaway lab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-the-bundled-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading the bundled modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fact-1-the-data-lives-in-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fact 1: the data lives in memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fact-2-one-command-at-a-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fact 2: one command at a time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-redis-is-the-wrong-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Redis is the wrong tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-redis-cli-and-resp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · redis-cli & the RESP Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-strings-counters-expiry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Strings, Counters & Expiry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-keyspace-scan-delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · The Keyspace: Naming, SCAN & Safe Deletes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-hashes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Hashes & Per-Field Expiry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-lists-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Lists: Queues, Stacks & Blocking Pops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Sets: Membership, Set Algebra & Random Picks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-sorted-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Sorted Sets: Rankings, Ranges & Time Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-clients-python-node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Clients: redis-py & node-redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-project-url-shortener/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — URL Shortener with Click Analytics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 · Data Structures in Depth
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 · Data Structures in Depth
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/01-encodings-memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Encodings & Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/02-bitmaps-bitfields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Bitmaps & Bitfields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/03-hyperloglog-probabilistic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · HyperLogLog, Bloom Filters & Other Sketches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/04-geospatial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Geospatial Indexes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/05-streams-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Streams: An Append-Only Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/06-streams-consumer-groups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Stream Consumer Groups & Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/07-pubsub-notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Pub/Sub, Sharded Pub/Sub & Keyspace Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/08-transactions-watch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Transactions: MULTI, EXEC & WATCH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/09-lua-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Lua Scripts & Redis Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2/10-project-leaderboard-feed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — Game Leaderboard & Activity Feed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 · Caching & Application Patterns
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 · Caching & Application Patterns
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/01-caching-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Caching Patterns: Cache-Aside to Write-Behind
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/02-eviction-expiry-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · maxmemory, Eviction & How Expiry Really Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/03-stampedes-invalidation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Cache Stampedes & Invalidation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/04-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Rate Limiting Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/05-distributed-locks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Distributed Locks & Their Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/06-sessions-client-caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Sessions & Client-Side Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/07-job-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Reliable Job Queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/08-json-documents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · JSON Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/09-search-vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Query Engine: Secondary Indexes & Vector Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3/10-project-api-cache-limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — Caching & Rate-Limiting Layer for an API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 · Operations & Production
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 · Operations & Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/01-rdb-snapshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Persistence I: RDB Snapshots & fork()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/02-aof-durability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Persistence II: AOF, fsync & Hybrid Persistence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/03-replication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Replication: PSYNC, the Backlog & Consistency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/04-sentinel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · High Availability with Sentinel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/05-cluster-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Redis Cluster: Hash Slots, MOVED & ASK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/06-cluster-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Cluster Operations: Resharding, Scaling & Failover
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/07-security-acl-tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Security: ACLs, Protected Mode & TLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/08-monitoring-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Monitoring & Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/09-licensing-valkey-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Versions, Licensing, Valkey & Upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4/10-capstone-production-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Capstone — A Secured, Persistent, Failover-Tested Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-throwaway-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A throwaway lab
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A throwaway lab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-the-bundled-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading the bundled modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fact-1-the-data-lives-in-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fact 1: the data lives in memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fact-2-one-command-at-a-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fact 2: one command at a time
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-redis-is-the-wrong-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Redis is the wrong tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="01-what-redis-is-one-thread-memory-a-local-lab">01 · What Redis Is: One Thread, Memory &amp; a Local Lab<a class="headerlink" href="#01-what-redis-is-one-thread-memory-a-local-lab" title="Permanent link">&para;</a></h1>
+<p>Redis is usually introduced as "a cache" or "a key-value store". Both undersell it and both mislead. Redis is
+a <strong>data structure server</strong>: a process that keeps strings, hashes, lists, sets, sorted sets, streams and a few
+more exotic types in RAM, and lets many clients run small, atomic operations on them over a network socket.
+A cache is one thing you can build with that. So are leaderboards, rate limiters, job queues, session stores,
+presence indicators, distributed locks and event logs.</p>
+<p>Two facts shape everything else in this course:</p>
+<ol>
+<li><strong>The data lives in memory.</strong> Reads and writes don't touch a disk on the request path. That's why Redis is
+   fast, and it's also why the dataset must fit in RAM and why durability is something you configure rather
+   than something you get.</li>
+<li><strong>Commands execute one at a time, on one thread.</strong> Each command runs to completion before the next one
+   starts. That's why <code>INCR</code> never loses an update. It's also why one slow command makes <em>every</em> client wait.</li>
+</ol>
+<p>This lesson sets up a lab, then measures both facts on a real server.</p>
+<h2 id="installing-redis">Installing Redis<a class="headerlink" href="#installing-redis" title="Permanent link">&para;</a></h2>
+<p>Everything in this course was run on <strong>Redis 8.10.2</strong>, installed with Homebrew on macOS (Apple Silicon):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brew<span class="w"> </span>install<span class="w"> </span>redis
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>redis-server<span class="w"> </span>--version
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Redis server v=8.10.2 sha=00000000:1 malloc=libc bits=64 build=764b3e45065a66fb
+</code></pre></div>
+<p>The formula installs six programs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis-sentinel  redis-server
+</code></pre></div>
+<p>On Linux, the Redis project publishes its own APT/RPM repositories and an official <code>redis</code> container image;
+your distribution's package may be several major versions behind, so check <code>redis-server --version</code> before
+assuming a feature exists. (Those install paths weren't used for this course. Commands are the same once the
+server is running.)</p>
+<div class="admonition note">
+<p class="admonition-title">Valkey</p>
+<p>If your platform ships <strong>Valkey</strong> instead of Redis, most of Levels 1–3 still applies. Valkey is a fork of
+Redis 7.2 and speaks the same protocol and core commands. The two projects have diverged since then.
+Level 4 · 09 compares them directly on the same machine.</p>
+</div>
+<h2 id="a-throwaway-lab">A throwaway lab<a class="headerlink" href="#a-throwaway-lab" title="Permanent link">&para;</a></h2>
+<p>You want a server that you can wipe and restart freely, separate from any Redis that something else on the
+machine depends on. Command-line flags override config file settings, so you don't need a config file to
+start one:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/redis-lab<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/redis-lab
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>redis-server<span class="w"> </span>--port<span class="w"> </span><span class="m">6400</span><span class="w"> </span>--dir<span class="w"> </span>~/redis-lab<span class="w"> </span>--save<span class="w"> </span><span class="s1">''</span><span class="w"> </span>--enable-debug-command<span class="w"> </span><span class="nb">local</span>
+</code></pre></div>
+<ul>
+<li><code>--port 6400</code> keeps it off the default port 6379.</li>
+<li><code>--dir</code> is where any snapshot or append-only file would be written.</li>
+<li><code>--save ''</code> turns off automatic snapshots, so nothing lands on disk unless you ask.</li>
+<li><code>--enable-debug-command local</code> allows <code>DEBUG</code> from localhost. It's off by default since Redis 7, and we
+  use it here to generate test data. Never enable it on a shared server.</li>
+</ul>
+<p>The server logs to the terminal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>97838:C 13 Oct 2026 06:54:46.616 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>97838:C 13 Oct 2026 06:54:46.616 * Redis version=8.10.2, bits=64, commit=00000000, modified=1, pid=97838, just started
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>97838:C 13 Oct 2026 06:54:46.616 * Configuration loaded
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>97838:M 13 Oct 2026 06:54:46.616 * monotonic clock: ARM CNTVCT @ 24 ticks/us
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>97838:M 13 Oct 2026 06:54:46.616 * Running mode=standalone, port=6400.
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>97838:M 13 Oct 2026 06:54:46.616 # WARNING: The TCP backlog setting of 511 cannot be enforced because kern.ipc.somaxconn is set to the lower value of 128.
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>97838:M 13 Oct 2026 06:54:46.617 * Server initialized
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>97838:M 13 Oct 2026 06:54:46.617 * Ready to accept connections tcp
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>97838:M 13 Oct 2026 06:54:46.617 # WARNING: Redis does not require authentication. Redis will accept connections from any local client.
+</code></pre></div>
+<p>Each line starts with the PID and a role letter: <code>C</code> is a child or startup phase, <code>M</code> is the main process.
+The two warnings are worth reading rather than ignoring. The backlog warning means the OS caps how many
+not-yet-accepted connections can queue up, which matters on busy Linux servers (raise <code>net.core.somaxconn</code>).
+The authentication warning says plainly that anyone who can reach this port can run any command. Level 4 ·
+07 deals with that.</p>
+<p>In a second terminal:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>ping
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>PONG
+</code></pre></div>
+<p>The <strong>lab convention</strong> for the rest of the course: a lab server on the default port <strong>6379</strong>, started the
+same way with its own <code>--dir</code>. Lessons that need several servers (replication, Sentinel, Cluster) start them
+on other ports and say so. Shut a lab server down with <code>redis-cli -p &lt;port&gt; shutdown nosave</code>. The <code>nosave</code>
+means "don't write a snapshot on the way out".</p>
+<h3 id="loading-the-bundled-modules">Loading the bundled modules<a class="headerlink" href="#loading-the-bundled-modules" title="Permanent link">&para;</a></h3>
+<p>Redis 8 ships JSON, the query engine (search and vector indexes), probabilistic types (Bloom, Cuckoo, Count-Min,
+Top-K, t-digest) and time series as modules that are part of the Redis Open Source distribution. Homebrew's
+<code>/opt/homebrew/etc/redis.conf</code> loads them with <code>loadmodule</code> lines, but a server started only with flags, like
+the one above, doesn't:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>MODULE<span class="w"> </span>LIST
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>1) 1) "name"
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>   2) "vectorset"
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>   3) "ver"
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>   4) (integer) 1
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>   ...
+</code></pre></div>
+<p>Only the built-in <code>vectorset</code> type is there. For the lessons that use JSON, search or Bloom filters (Level 2 ·
+03, Level 3 · 08–10), start the lab from a small config file instead:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># ~/redis-lab/redis.conf
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>port 6379
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>dir /Users/you/redis-lab
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>save ""
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>appendonly no
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>loadmodule /opt/homebrew/opt/redis/lib/redis/modules/redisbloom.so
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>loadmodule /opt/homebrew/opt/redis/lib/redis/modules/redisearch.so
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>loadmodule /opt/homebrew/opt/redis/lib/redis/modules/rejson.so
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>loadmodule /opt/homebrew/opt/redis/lib/redis/modules/redistimeseries.so
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>redis-server<span class="w"> </span>~/redis-lab/redis.conf
+</code></pre></div>
+<p>On Linux the module paths depend on how Redis was packaged. Look for the <code>loadmodule</code> lines in the
+<code>redis.conf</code> your package installed.</p>
+<h2 id="fact-1-the-data-lives-in-memory">Fact 1: the data lives in memory<a class="headerlink" href="#fact-1-the-data-lives-in-memory" title="Permanent link">&para;</a></h2>
+<p>Ask the empty server how much memory it's using:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>INFO<span class="w"> </span>memory<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^used_memory(_human|_rss_human)?:'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>used_memory:930608
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>used_memory_human:908.80K
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>used_memory_rss_human:4.72M
+</code></pre></div>
+<p><code>used_memory</code> is what Redis's allocator has handed out. <code>used_memory_rss</code> is what the operating system says the
+process occupies, including allocator overhead and fragmentation. Now generate a million keys, each a
+64-byte string. <code>DEBUG POPULATE</code> exists for exactly this kind of test:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>DEBUG<span class="w"> </span>POPULATE<span class="w"> </span><span class="m">1000000</span><span class="w"> </span>user<span class="w"> </span><span class="m">64</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>DBSIZE
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>INFO<span class="w"> </span>memory<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^used_memory_human|^used_memory_rss_human'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>OK
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>1000000
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>used_memory_human:121.20M
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>used_memory_rss_human:126.12M
+</code></pre></div>
+<p>About 120 MB for 64 MB of values. That's roughly <strong>120 bytes per key</strong> for keys like <code>user:42</code> holding 64
+bytes. The difference is overhead: the hash table entry, the key object, the value object and the allocator's
+size classes. Ask about one key:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>GET<span class="w"> </span>user:42
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>MEMORY<span class="w"> </span>USAGE<span class="w"> </span>user:42
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>value:42
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>106
+</code></pre></div>
+<p><code>DEBUG POPULATE</code> pads the value to 64 bytes, which is why <code>value:42</code> has trailing spaces. <code>MEMORY USAGE</code>
+estimates 106 bytes for this key, its value and its share of the table. When you size a Redis server, count the
+overhead per key and not just the payload. With many small keys, the overhead can be bigger than the data.
+Level 2 · 01 shows how to shrink it.</p>
+<p>Memory is volatile, so what happens to those million keys if the process stops? It depends entirely on
+configuration. Write a snapshot by hand, kill the server without saving, and start it again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>SAVE
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>dump.rdb
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6400</span><span class="w"> </span>SHUTDOWN<span class="w"> </span>NOSAVE
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>redis-server<span class="w"> </span>--port<span class="w"> </span><span class="m">6400</span><span class="w"> </span>--dir<span class="w"> </span>~/redis-lab<span class="w"> </span>--save<span class="w"> </span><span class="s1">''</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>OK
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>-rw-r--r--@ 1 bhanuja  wheel  36777608 Oct 13 06:55 dump.rdb
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>97881:M 13 Oct 2026 06:55:06.833 * Loading RDB produced by version 8.10.2
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>97881:M 13 Oct 2026 06:55:07.524 * Done loading RDB, keys loaded: 1000000, keys expired: 0.
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>97881:M 13 Oct 2026 06:55:07.524 * DB loaded from disk: 0.692 seconds
+</code></pre></div>
+<p>The 121 MB in memory became a 37 MB file. RDB is a compact serialization and compresses repetitive strings.
+On startup Redis found <code>dump.rdb</code> in its <code>dir</code> and loaded it before accepting connections. Without that <code>SAVE</code>,
+the restart would have come up empty, because this lab disabled automatic snapshots.</p>
+<p>A server started with <strong>no</strong> configuration at all is <em>not</em> in that state:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>redis-server<span class="w"> </span>--port<span class="w"> </span><span class="m">6401</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6401</span><span class="w"> </span>CONFIG<span class="w"> </span>GET<span class="w"> </span>save
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">6401</span><span class="w"> </span>CONFIG<span class="w"> </span>GET<span class="w"> </span>appendonly
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>save
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>3600 1 300 100 60 10000
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>appendonly
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>no
+</code></pre></div>
+<p>The built-in default snapshots after 3600 s if at least 1 key changed, after 300 s if 100 changed, and after
+60 s if 10,000 changed. So by default you can lose up to an hour of writes in a crash, and the append-only file
+that narrows that window is off. Whether that's acceptable depends on what you store. Level 4 · 01–02 cover
+persistence properly.</p>
+<h2 id="fact-2-one-command-at-a-time">Fact 2: one command at a time<a class="headerlink" href="#fact-2-one-command-at-a-time" title="Permanent link">&para;</a></h2>
+<p>Look at the threads of the running server:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ps<span class="w"> </span>-M<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pgrep<span class="w"> </span>-f<span class="w"> </span><span class="s1">'redis-server.*6400'</span><span class="k">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>USER      PID   TT   %CPU STAT PRI     STIME     UTIME COMMAND
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>bhanuja 97838   ??    0.2 S    31T   0:00.01   0:00.01 redis-server *:6400
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>        97838         0.0 S    31T   0:00.00   0:00.00
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>        97838         0.0 S    31T   0:00.00   0:00.00
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>        97838         0.0 S    31T   0:00.00   0:00.00
+</code></pre></div>
+<p>There are four threads. The main thread runs the event loop and <strong>executes every command</strong>. The other three are
+background ("bio") threads that close files, fsync the append-only file and free large values lazily, so that
+none of those slow system calls stall the main thread. None of them runs client commands.</p>
+<p>The consequence is easy to measure. This script pings the server every millisecond from one connection while
+another connection runs <code>KEYS *</code>, a command that walks the entire keyspace:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span><span class="o">,</span><span class="w"> </span><span class="nn">redis</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">6400</span><span class="p">)</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">slow</span><span class="p">():</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s1">'*'</span><span class="p">))</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"KEYS * returned </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> keys in </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span><span class="o">-</span><span class="n">t</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="n">worst</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">pinger</span><span class="p">(</span><span class="n">stop</span><span class="p">):</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>    <span class="k">global</span> <span class="n">worst</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>    <span class="n">c</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">6400</span><span class="p">);</span> <span class="n">c</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">stop</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>        <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">();</span> <span class="n">c</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>        <span class="n">worst</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">worst</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>
+<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="n">stop</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a><span class="n">th</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">pinger</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">stop</span><span class="p">,));</span> <span class="n">th</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"worst PING before: </span><span class="si">{</span><span class="n">worst</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ms"</span><span class="p">);</span> <span class="n">worst</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a><span class="n">slow</span><span class="p">()</span>
+<a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">);</span> <span class="n">stop</span><span class="o">.</span><span class="n">set</span><span class="p">();</span> <span class="n">th</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"worst PING while KEYS ran: </span><span class="si">{</span><span class="n">worst</span><span class="o">*</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> ms"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>worst PING before: 0.34 ms
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>KEYS * returned 1000000 keys in 0.192s
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>worst PING while KEYS ran: 149.1 ms
+</code></pre></div>
+<p>A <code>PING</code> normally takes a third of a millisecond. While <code>KEYS *</code> ran, one <code>PING</code> waited 149 ms. Nothing was
+wrong with that client; it was just queued behind someone else's command. On a laptop with a million keys that's
+a hiccup. With 50 million keys in production, it's an outage. That's why Level 1 · 04 replaces <code>KEYS</code> with
+<code>SCAN</code>, and why "what's the time complexity of this command?" is a question you'll keep asking all course.</p>
+<p>The same property is a gift. Because nothing else runs while <code>INCR counter</code> executes, the read-add-write
+inside it can't interleave with another client's. You get atomicity for every single command without writing
+a lock.</p>
+<h2 id="when-redis-is-the-wrong-tool">When Redis is the wrong tool<a class="headerlink" href="#when-redis-is-the-wrong-tool" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The data doesn't fit in RAM</strong>, or RAM costs too much at your size. Redis is priced per gigabyte of memory.</li>
+<li><strong>You need ad-hoc queries.</strong> There's no general query language over values. You design keys and data
+  structures around the questions you'll ask. The query engine (Level 3 · 09) adds secondary indexes, but you
+  still declare them up front.</li>
+<li><strong>Losing the last second of writes is unacceptable</strong> and you can't prove your persistence and replication
+  setup meets that. A relational database with synchronous commit is the safer default for records of truth.</li>
+<li><strong>Large values.</strong> A single 50 MB string has to be serialized on the one thread that serves everyone.</li>
+</ul>
+<p>Most production systems use Redis <em>alongside</em> a primary database: the database holds the truth, and Redis
+holds fast, derived or short-lived state.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>When <code>redis-server</code> starts, it parses flags and the config file, creates a listening socket and enters an
+<strong>event loop</strong> (Redis's small <code>ae</code> library). On macOS the loop waits on <code>kqueue</code> (the <code>multiplexing_api:kqueue</code>
+line in <code>INFO server</code>); on Linux it uses <code>epoll</code>. Each iteration asks the kernel which sockets are readable,
+reads whatever bytes have arrived into each client's query buffer, parses complete commands out of it, and runs
+them one after another. Replies go into per-client output buffers and are written back when the sockets become
+writable. Timers also run in that loop. The <code>serverCron</code> function, at <code>hz</code> times per second (10 by default),
+expires keys, checks whether a snapshot is due and updates statistics.</p>
+<p>Because one thread owns all the data, the data structures need no locks. A command reads and modifies the
+in-memory structures directly and finishes before the loop moves on. This is the source of both the atomicity
+and the head-of-line blocking you measured. Redis can be configured with <code>io-threads</code> (it was <code>1</code> on the lab
+server) to move reading and writing of sockets onto helper threads. That helps when a large server spends most
+of its time in network I/O. Command execution itself stays on the main thread.</p>
+<p>The keyspace is a hash table from key to value object. Each key is a compact string type (SDS, "simple dynamic
+string") that stores its length up front, so strings are binary-safe and <code>STRLEN</code> is O(1). Each value carries a
+type tag and an <em>encoding</em>: the same logical type may be stored in different ways depending on its size. Level
+2 · 01 explores this. The per-key overhead you measured is the table entry plus those headers, rounded up to the
+allocator's size classes.</p>
+<p><code>SAVE</code> serialized the whole dataset into the RDB format on the main thread, blocking clients while it wrote.
+On startup Redis reads the file back before opening for business, which is why loading a million keys took
+0.69 s with the server unavailable. That gap is one reason restarting a large Redis isn't free.</p>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Treating Redis as durable by default.</strong> The default snapshot schedule can lose an hour of writes, and many
+  managed or containerized setups disable persistence entirely. Know your configuration.</li>
+<li><strong>Running O(N) commands on big keyspaces.</strong> <code>KEYS *</code>, <code>FLUSHALL</code> (synchronous), <code>SMEMBERS</code> on a huge set, or
+  <code>HGETALL</code> on a huge hash all block every other client for the whole time they run.</li>
+<li><strong>Sizing by payload.</strong> A million 64-byte values took 121 MB, not 64 MB. Measure <code>used_memory</code> with a realistic
+  sample before you buy RAM.</li>
+<li><strong>Exposing the port.</strong> With no password, anyone who reaches the port can read, delete or reconfigure
+  everything. Protected mode only stops connections from outside localhost when no password <em>and</em> no explicit
+  bind address are set.</li>
+<li><strong>Testing against the shared server.</strong> Use a lab you can wipe. Several lessons in this course deliberately
+  break things.</li>
+</ul>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start a lab on port 6400 with <code>--save ''</code> and <code>--enable-debug-command local</code>. Populate 200,000 keys with
+   <code>DEBUG POPULATE 200000 k 16</code>, then with 200,000 keys of 1,000 bytes (flush in between with <code>FLUSHALL</code>).
+   Record <code>used_memory</code> each time and work out the overhead per key in both cases. Which case has the larger
+   overhead <em>as a percentage</em>?</li>
+<li>Run the <code>KEYS *</code> blocking script with 100k, 1M and 3M keys. Does the worst <code>PING</code> latency grow roughly
+   linearly with the key count?</li>
+<li>Run <code>INFO server</code> and find <code>multiplexing_api</code>, <code>process_id</code> and <code>config_file</code>. Why is <code>config_file</code> empty for
+   your flag-started lab?</li>
+<li>Without <code>SAVE</code>, shut the <code>--save ''</code> server down with plain <code>SHUTDOWN</code> (no <code>NOSAVE</code>) and restart it. Were
+   the keys kept? Then repeat with a server started with <code>--save '60 1'</code> and compare the shutdown lines in the
+   two logs. What does <code>SHUTDOWN</code> decide based on the <code>save</code> setting?</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-redis-cli-and-resp/" class="md-footer__link md-footer__link--next" aria-label="Next: 02 · redis-cli &amp; the RESP Protocol">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                02 · redis-cli & the RESP Protocol
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../../javascripts/progress-tracker.js"></script>
+      
+    
+  </body>
+</html>
