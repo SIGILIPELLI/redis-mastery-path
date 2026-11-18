@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sigilipelli.github.io/redis-mastery-path/sitemap.xml
+Sitemap: https://learnmasterypath.com/redis-mastery-path/sitemap.xml

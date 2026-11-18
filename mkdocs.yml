@@ -1,6 +1,6 @@
 site_name: Redis Mastery Path
 site_description: A hands-on Redis course — strings, hashes, lists, sets, sorted sets, streams, caching patterns, rate limiting, locks, Lua and functions, JSON and vector search, persistence, replication, Sentinel, Cluster, ACLs and operations.
-site_url: https://sigilipelli.github.io/redis-mastery-path/
+site_url: https://learnmasterypath.com/redis-mastery-path/
 repo_url: https://github.com/sigilipelli/redis-mastery-path
 repo_name: redis-mastery-path
 
