@@ -77,12 +77,14 @@ extra:
     - name: "Vector Databases"
       url: https://learnmasterypath.com/python-mastery-path/vector-databases-mastery-path/
 
+not_in_nav: |
+  privacy.md
+  license.md
+
 nav:
   - Home: index.md
   - "💼 Interview Questions": interview-questions.md
   - "📋 Cheat Sheet": cheat-sheet.md
-  - Privacy Policy: privacy.md
-  - License: license.md
   - "Level 1 · Redis Foundations":
       - Overview: level-1/index.md
       - "01 · What Redis Is: One Thread, Memory & a Local Lab": level-1/01-what-redis-is-and-a-lab.md
