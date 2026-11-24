@@ -1,6 +1,6 @@
 ---
 title: "Free Redis Course: Data Structures, Caching, Rate Limiting, Streams, Lua, Search, Persistence, Replication, Sentinel and Cluster"
-description: "Free Redis course: 40 lessons run on Redis 8.10 — data types, caching, rate limits, locks, streams, Lua, search, persistence, replication, Cluster."
+description: "Free Redis course: 36 lessons and 4 projects run on Redis 8.10 — data types, caching, rate limits, locks, streams, Lua, search, persistence, replication, Cluster."
 ---
 
 # Redis Mastery Path
@@ -56,7 +56,7 @@ decides whether it needs a full resync.
 | **3 · Caching & Application Patterns** | Caching, eviction, stampedes, rate limits, locks, sessions, queues, JSON, search | 10 | Build the patterns Redis is hired for without their classic bugs |
 | **4 · Operations & Production** | Persistence, replication, Sentinel, Cluster, security, monitoring, upgrades | 10 | Run Redis in production and prove what survives a failure |
 
-Each level has 9 teaching modules plus a hands-on project (module 10), for **40 lessons** total.
+Each level has 9 teaching modules plus a hands-on project (module 10), which makes **36 lessons and 4 projects** in total.
 
 ## How to use this site
 
