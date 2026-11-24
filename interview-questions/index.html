@@ -1,0 +1,4318 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="180 Redis interview questions with answers and explanations, from beginner to advanced, organised by level. Free, from the Redis Mastery Path.">
+      
+      
+      
+        <link rel="canonical" href="https://learnmasterypath.com/redis-mastery-path/interview-questions/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../cheat-sheet/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+  
+  <title>Redis Interview Questions and Answers (180 Questions)</title>
+
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/progress-tracker.css">
+    
+      <link rel="stylesheet" href="../stylesheets/final-quiz.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05VBGCXN12"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-05VBGCXN12');
+  </script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mastery Path">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Redis Interview Questions and Answers (180 Questions)">
+  <meta property="og:description" content="180 Redis interview questions with answers and explanations, from beginner to advanced, organised by level. Free, from the Redis Mastery Path.">
+  <meta property="og:url" content="https://learnmasterypath.com/redis-mastery-path/interview-questions/">
+  <meta property="og:image" content="https://learnmasterypath.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mastery Path: free structured courses, beginner to master">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Redis Interview Questions and Answers (180 Questions)">
+  <meta name="twitter:description" content="180 Redis interview questions with answers and explanations, from beginner to advanced, organised by level. Free, from the Redis Mastery Path.">
+  <meta name="twitter:image" content="https://learnmasterypath.com/og-image.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9440969811959397"
+     crossorigin="anonymous"></script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Mastery Path", "item": "https://learnmasterypath.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Redis Mastery Path", "item": "https://learnmasterypath.com/redis-mastery-path/"},
+      {"@type": "ListItem", "position": 3, "name": "Interview Questions", "item": "https://learnmasterypath.com/redis-mastery-path/interview-questions/"}
+    ]
+  }
+  </script>
+  <style>
+    .md-banner a:hover { text-decoration: underline !important; }
+    .mp-related { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid var(--md-default-fg-color--lightest); font-size: .78rem; }
+    .mp-related h2 { font-size: .9rem; margin: 0 0 .5rem; }
+    .mp-related ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+    .mp-related li { margin: 0 !important; }
+  </style>
+  <script type="application/json" id="mp-course-meta">{"home": false, "id": "redis-mastery-path", "name": "Redis Mastery Path", "repo": "https://github.com/sigilipelli/redis-mastery-path", "src": "interview-questions.md", "url": "https://learnmasterypath.com/redis-mastery-path/"}</script>
+  <link rel="stylesheet" href="https://learnmasterypath.com/assets/learn.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://learnmasterypath.com/assets/course.css?v=1">
+  <script src="https://learnmasterypath.com/assets/learn.js" defer></script>
+  <script src="https://learnmasterypath.com/assets/signup.js" defer></script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#redis-interview-questions-and-answers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  <a href="https://learnmasterypath.com/" style="color: inherit; text-decoration: none;">
+    &larr; Mastery Path &middot; all 100+ free courses
+  </a>
+  <span style="opacity: .6; margin: 0 .6em;">|</span>
+  <a href="https://learnmasterypath.com/search/" style="color: inherit; text-decoration: none;">Search all courses</a>
+  <span style="opacity: .6; margin: 0 .6em;">|</span>
+  <a href="https://learnmasterypath.com/resume/" style="color: inherit; font-weight: 700; text-decoration: none;">
+    Got the skills? Free resume ATS check &rarr;
+  </a>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Redis Mastery Path" class="md-header__button md-logo" aria-label="Redis Mastery Path" data-md-component="logo">
+      <svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <circle cx="80" cy="80" r="74" fill="#FAF7EF" stroke="#2FA98D" stroke-width="5"/>
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redis Mastery Path
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Redis Interview Questions and Answers (180 Questions)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sigilipelli/redis-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    redis-mastery-path
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Interview Questions
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cheat-sheet/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cheat Sheet
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 1 · Redis Foundations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 2 · Data Structures in Depth
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-3/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 3 · Caching & Application Patterns
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-4/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 4 · Operations & Production
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quiz/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Final Quiz
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Redis Mastery Path" class="md-nav__button md-logo" aria-label="Redis Mastery Path" data-md-component="logo">
+      <svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <circle cx="80" cy="80" r="74" fill="#FAF7EF" stroke="#2FA98D" stroke-width="5"/>
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg>
+    </a>
+    Redis Mastery Path
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sigilipelli/redis-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    redis-mastery-path
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-redis-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 1 · Redis Foundations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 · Redis Foundations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-what-redis-is-one-thread-memory-a-local-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · What Redis Is: One Thread, Memory &amp; a Local Lab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-redis-cli-the-resp-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · redis-cli &amp; the RESP Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-strings-counters-expiry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Strings, Counters &amp; Expiry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-the-keyspace-naming-scan-safe-deletes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · The Keyspace: Naming, SCAN &amp; Safe Deletes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-hashes-per-field-expiry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Hashes &amp; Per-Field Expiry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-lists-queues-stacks-blocking-pops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Lists: Queues, Stacks &amp; Blocking Pops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-sets-membership-set-algebra-random-picks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Sets: Membership, Set Algebra &amp; Random Picks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-sorted-sets-rankings-ranges-time-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Sorted Sets: Rankings, Ranges &amp; Time Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-clients-redis-py-node-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Clients: redis-py &amp; node-redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-url-shortener-with-click-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — URL Shortener with Click Analytics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-data-structures-in-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 2 · Data Structures in Depth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 · Data Structures in Depth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-encodings-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Encodings &amp; Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-bitmaps-bitfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Bitmaps &amp; Bitfields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-hyperloglog-bloom-filters-other-sketches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · HyperLogLog, Bloom Filters &amp; Other Sketches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-geospatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Geospatial Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-streams-an-append-only-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Streams: An Append-Only Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-stream-consumer-groups-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Stream Consumer Groups &amp; Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-pubsub-sharded-pubsub-keyspace-notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Pub/Sub, Sharded Pub/Sub &amp; Keyspace Notifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-transactions-multi-exec-watch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Transactions: MULTI, EXEC &amp; WATCH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-lua-scripts-redis-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Lua Scripts &amp; Redis Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-game-leaderboard-activity-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Game Leaderboard &amp; Activity Feed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-3-caching-application-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 3 · Caching &amp; Application Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 3 · Caching &amp; Application Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-caching-patterns-cache-aside-to-write-behind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Caching Patterns: Cache-Aside to Write-Behind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-maxmemory-eviction-how-expiry-really-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · maxmemory, Eviction &amp; How Expiry Really Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-cache-stampedes-invalidation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Cache Stampedes &amp; Invalidation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-rate-limiting-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Rate Limiting Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-distributed-locks-their-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Distributed Locks &amp; Their Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-sessions-client-side-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Sessions &amp; Client-Side Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-reliable-job-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Reliable Job Queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-json-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · JSON Documents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-query-engine-secondary-indexes-vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Query Engine: Secondary Indexes &amp; Vector Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-caching-rate-limiting-layer-for-an-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Caching &amp; Rate-Limiting Layer for an API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-4-operations-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 4 · Operations &amp; Production
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 4 · Operations &amp; Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-persistence-i-rdb-snapshots-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Persistence I: RDB Snapshots &amp; fork()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-persistence-ii-aof-fsync-hybrid-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Persistence II: AOF, fsync &amp; Hybrid Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-replication-psync-the-backlog-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Replication: PSYNC, the Backlog &amp; Consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-high-availability-with-sentinel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · High Availability with Sentinel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-redis-cluster-hash-slots-moved-ask" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Redis Cluster: Hash Slots, MOVED &amp; ASK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-cluster-operations-resharding-scaling-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Cluster Operations: Resharding, Scaling &amp; Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-security-acls-protected-mode-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Security: ACLs, Protected Mode &amp; TLS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-monitoring-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Monitoring &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-versions-licensing-valkey-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Versions, Licensing, Valkey &amp; Upgrades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-capstone-a-secured-persistent-failover-tested-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Capstone — A Secured, Persistent, Failover-Tested Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed-questions-across-all-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixed questions across all levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-coding-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical coding questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical coding questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-fixed-window-rate-limiter-in-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A fixed-window rate limiter in Lua
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-reliable-job-queue-with-lmove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A reliable job queue with LMOVE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat-sheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat Sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 · Redis Foundations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 · Redis Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/01-what-redis-is-and-a-lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · What Redis Is: One Thread, Memory & a Local Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/02-redis-cli-and-resp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · redis-cli & the RESP Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/03-strings-counters-expiry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Strings, Counters & Expiry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/04-keyspace-scan-delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · The Keyspace: Naming, SCAN & Safe Deletes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/05-hashes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Hashes & Per-Field Expiry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/06-lists-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Lists: Queues, Stacks & Blocking Pops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/07-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Sets: Membership, Set Algebra & Random Picks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/08-sorted-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Sorted Sets: Rankings, Ranges & Time Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/09-clients-python-node/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Clients: redis-py & node-redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/10-project-url-shortener/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — URL Shortener with Click Analytics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 · Data Structures in Depth
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 · Data Structures in Depth
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/01-encodings-memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Encodings & Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/02-bitmaps-bitfields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Bitmaps & Bitfields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/03-hyperloglog-probabilistic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · HyperLogLog, Bloom Filters & Other Sketches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/04-geospatial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Geospatial Indexes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/05-streams-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Streams: An Append-Only Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/06-streams-consumer-groups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Stream Consumer Groups & Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/07-pubsub-notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Pub/Sub, Sharded Pub/Sub & Keyspace Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/08-transactions-watch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Transactions: MULTI, EXEC & WATCH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/09-lua-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Lua Scripts & Redis Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/10-project-leaderboard-feed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — Game Leaderboard & Activity Feed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 · Caching & Application Patterns
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 · Caching & Application Patterns
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/01-caching-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Caching Patterns: Cache-Aside to Write-Behind
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/02-eviction-expiry-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · maxmemory, Eviction & How Expiry Really Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/03-stampedes-invalidation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Cache Stampedes & Invalidation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/04-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Rate Limiting Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/05-distributed-locks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Distributed Locks & Their Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/06-sessions-client-caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Sessions & Client-Side Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/07-job-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Reliable Job Queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/08-json-documents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · JSON Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/09-search-vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Query Engine: Secondary Indexes & Vector Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/10-project-api-cache-limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — Caching & Rate-Limiting Layer for an API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 · Operations & Production
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 · Operations & Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/01-rdb-snapshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Persistence I: RDB Snapshots & fork()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/02-aof-durability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Persistence II: AOF, fsync & Hybrid Persistence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/03-replication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Replication: PSYNC, the Backlog & Consistency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/04-sentinel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · High Availability with Sentinel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/05-cluster-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Redis Cluster: Hash Slots, MOVED & ASK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/06-cluster-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Cluster Operations: Resharding, Scaling & Failover
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/07-security-acl-tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Security: ACLs, Protected Mode & TLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/08-monitoring-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Monitoring & Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/09-licensing-valkey-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Versions, Licensing, Valkey & Upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/10-capstone-production-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Capstone — A Secured, Persistent, Failover-Tested Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quiz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final Quiz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-redis-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 1 · Redis Foundations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 · Redis Foundations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-what-redis-is-one-thread-memory-a-local-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · What Redis Is: One Thread, Memory &amp; a Local Lab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-redis-cli-the-resp-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · redis-cli &amp; the RESP Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-strings-counters-expiry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Strings, Counters &amp; Expiry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-the-keyspace-naming-scan-safe-deletes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · The Keyspace: Naming, SCAN &amp; Safe Deletes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-hashes-per-field-expiry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Hashes &amp; Per-Field Expiry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-lists-queues-stacks-blocking-pops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Lists: Queues, Stacks &amp; Blocking Pops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-sets-membership-set-algebra-random-picks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Sets: Membership, Set Algebra &amp; Random Picks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-sorted-sets-rankings-ranges-time-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Sorted Sets: Rankings, Ranges &amp; Time Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-clients-redis-py-node-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Clients: redis-py &amp; node-redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-url-shortener-with-click-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — URL Shortener with Click Analytics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-data-structures-in-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 2 · Data Structures in Depth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 · Data Structures in Depth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-encodings-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Encodings &amp; Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-bitmaps-bitfields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Bitmaps &amp; Bitfields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-hyperloglog-bloom-filters-other-sketches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · HyperLogLog, Bloom Filters &amp; Other Sketches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-geospatial-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Geospatial Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-streams-an-append-only-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Streams: An Append-Only Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-stream-consumer-groups-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Stream Consumer Groups &amp; Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-pubsub-sharded-pubsub-keyspace-notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Pub/Sub, Sharded Pub/Sub &amp; Keyspace Notifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-transactions-multi-exec-watch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Transactions: MULTI, EXEC &amp; WATCH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-lua-scripts-redis-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Lua Scripts &amp; Redis Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-game-leaderboard-activity-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Game Leaderboard &amp; Activity Feed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-3-caching-application-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 3 · Caching &amp; Application Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 3 · Caching &amp; Application Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-caching-patterns-cache-aside-to-write-behind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Caching Patterns: Cache-Aside to Write-Behind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-maxmemory-eviction-how-expiry-really-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · maxmemory, Eviction &amp; How Expiry Really Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-cache-stampedes-invalidation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Cache Stampedes &amp; Invalidation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-rate-limiting-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Rate Limiting Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-distributed-locks-their-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Distributed Locks &amp; Their Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-sessions-client-side-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Sessions &amp; Client-Side Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-reliable-job-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Reliable Job Queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-json-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · JSON Documents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-query-engine-secondary-indexes-vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Query Engine: Secondary Indexes &amp; Vector Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-caching-rate-limiting-layer-for-an-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Caching &amp; Rate-Limiting Layer for an API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-4-operations-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 4 · Operations &amp; Production
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 4 · Operations &amp; Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-persistence-i-rdb-snapshots-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Persistence I: RDB Snapshots &amp; fork()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-persistence-ii-aof-fsync-hybrid-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Persistence II: AOF, fsync &amp; Hybrid Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-replication-psync-the-backlog-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Replication: PSYNC, the Backlog &amp; Consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-high-availability-with-sentinel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · High Availability with Sentinel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-redis-cluster-hash-slots-moved-ask" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Redis Cluster: Hash Slots, MOVED &amp; ASK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-cluster-operations-resharding-scaling-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Cluster Operations: Resharding, Scaling &amp; Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-security-acls-protected-mode-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Security: ACLs, Protected Mode &amp; TLS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-monitoring-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Monitoring &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-versions-licensing-valkey-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Versions, Licensing, Valkey &amp; Upgrades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-capstone-a-secured-persistent-failover-tested-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Capstone — A Secured, Persistent, Failover-Tested Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed-questions-across-all-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixed questions across all levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-coding-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical coding questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical coding questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-fixed-window-rate-limiter-in-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A fixed-window rate limiter in Lua
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-reliable-job-queue-with-lmove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A reliable job queue with LMOVE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="redis-interview-questions-and-answers">Redis Interview Questions and Answers<a class="headerlink" href="#redis-interview-questions-and-answers" title="Permanent link">&para;</a></h1>
+<p><strong>180 questions</strong> with the correct answer and a short explanation, organised from beginner (Level 1) to advanced (Level 4). Every question comes from a lesson in the free Redis Mastery Path, so you can open the lesson to go deeper.</p>
+<div class="admonition tip">
+<p class="admonition-title">Practise, don't just read</p>
+<p>Each lesson also ends with an interactive quiz, and the <a href="../quiz/">final quiz</a> tests all four levels. Try to answer each question below before reading the answer.</p>
+</div>
+<h2 id="level-1-redis-foundations">Level 1 · Redis Foundations<a class="headerlink" href="#level-1-redis-foundations" title="Permanent link">&para;</a></h2>
+<h3 id="01-what-redis-is-one-thread-memory-a-local-lab"><a href="../level-1/01-what-redis-is-and-a-lab/">01 · What Redis Is: One Thread, Memory &amp; a Local Lab</a><a class="headerlink" href="#01-what-redis-is-one-thread-memory-a-local-lab" title="Permanent link">&para;</a></h3>
+<p><strong>Q1.</strong> What is Redis at its core?</p>
+<p><strong>Answer:</strong> An in-memory data structure server that holds keys mapped to typed values such as strings, lists, sets and hashes</p>
+<p>Data lives in RAM, which is why access is fast, and persistence is optional.</p>
+<p><strong>Q2.</strong> Why is Redis so fast for simple commands?</p>
+<p><strong>Answer:</strong> Data is in memory and commands are executed one at a time by a single main thread without lock contention</p>
+<p>Single-threaded command execution also makes each command atomic.</p>
+<p><strong>Q3.</strong> What is the main cost of keeping the dataset in RAM?</p>
+<p><strong>Answer:</strong> Capacity is limited by memory, so you must plan sizing, eviction or persistence deliberately</p>
+<p>Memory is more expensive than disk.</p>
+<p><strong>Q4.</strong> Which is a typical Redis use?</p>
+<p><strong>Answer:</strong> Caching, sessions, counters, queues, leaderboards and rate limiting</p>
+<p>It often sits beside a primary database rather than replacing it.</p>
+<h3 id="02-redis-cli-the-resp-protocol"><a href="../level-1/02-redis-cli-and-resp/">02 · redis-cli &amp; the RESP Protocol</a><a class="headerlink" href="#02-redis-cli-the-resp-protocol" title="Permanent link">&para;</a></h3>
+<p><strong>Q5.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SET greeting hello
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>GET greeting
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>STRLEN greeting
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>EXISTS greeting
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>EXISTS nothere
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+hello
+5
+1
+0</p>
+<p>EXISTS returns the number of keys that exist; STRLEN counts bytes. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q6.</strong> Are Redis command names case-sensitive?</p>
+<p><strong>Answer:</strong> No: commands are case-insensitive, but key names are case-sensitive</p>
+<p>SET and set are the same command; user:1 and User:1 are different keys.</p>
+<p><strong>Q7.</strong> What is RESP?</p>
+<p><strong>Answer:</strong> The Redis serialization protocol clients use to talk to the server</p>
+<p>redis-cli speaks RESP and prints a friendly version.</p>
+<p><strong>Q8.</strong> What should a healthy server answer to PING?</p>
+<p><strong>Answer:</strong> PONG</p>
+<p>A quick liveness check.</p>
+<h3 id="03-strings-counters-expiry"><a href="../level-1/03-strings-counters-expiry/">03 · Strings, Counters &amp; Expiry</a><a class="headerlink" href="#03-strings-counters-expiry" title="Permanent link">&para;</a></h3>
+<p><strong>Q9.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>SET n 10
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>INCR n
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>INCRBY n 5
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>DECR n
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>GET n
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+11
+16
+15
+15</p>
+<p>INCR on a string that holds an integer is atomic, so concurrent clients never lose updates. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q10.</strong> What does TTL return for a key with no expiry and for a missing key?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>SET a 1
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>TTL a
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>TTL missing
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+-1
+-2</p>
+<p>-1 means the key exists without an expiry; -2 means the key does not exist. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q11.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>SET k v EX 100
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>SET k w
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>TTL k
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+OK
+-1</p>
+<p>A plain SET overwrites the value and removes the old expiry unless you use KEEPTTL. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q12.</strong> What does SET ... NX do?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>SET lock a NX
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>SET lock b NX
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>GET lock
+</code></pre></div>
+<p><strong>Answer:</strong> OK</p>
+<p>a</p>
+<p>NX sets only if the key does not exist; the second call returns nil (an empty line in raw output) and the value stays a. Verified by running it against a real Redis 8 server.</p>
+<h3 id="04-the-keyspace-naming-scan-safe-deletes"><a href="../level-1/04-keyspace-scan-delete/">04 · The Keyspace: Naming, SCAN &amp; Safe Deletes</a><a class="headerlink" href="#04-the-keyspace-naming-scan-safe-deletes" title="Permanent link">&para;</a></h3>
+<p><strong>Q13.</strong> Why is KEYS * dangerous on a production server?</p>
+<p><strong>Answer:</strong> It scans the whole keyspace in one blocking call and stalls other clients</p>
+<p>Use SCAN instead.</p>
+<p><strong>Q14.</strong> What is true of SCAN?</p>
+<p><strong>Answer:</strong> It iterates incrementally using a cursor, may return a key more than once, and may miss keys added or deleted during the scan</p>
+<p>Clients must tolerate duplicates.</p>
+<p><strong>Q15.</strong> What does UNLINK do differently from DEL?</p>
+<p><strong>Answer:</strong> It removes the key immediately from the keyspace and frees the memory in a background thread</p>
+<p>Good for large values.</p>
+<p><strong>Q16.</strong> Which key naming style is recommended?</p>
+<p><strong>Answer:</strong> Structured names such as user:42:profile</p>
+<p>Consistent prefixes make SCAN MATCH and monitoring easier.</p>
+<h3 id="05-hashes-per-field-expiry"><a href="../level-1/05-hashes/">05 · Hashes &amp; Per-Field Expiry</a><a class="headerlink" href="#05-hashes-per-field-expiry" title="Permanent link">&para;</a></h3>
+<p><strong>Q17.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>HSET user:1 name Ana age 30
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>HGET user:1 name
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>HINCRBY user:1 age 1
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>HLEN user:1
+</code></pre></div>
+<p><strong>Answer:</strong> 2
+Ana
+31
+2</p>
+<p>HSET returns the number of fields added. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q18.</strong> Why use a hash for an object instead of a JSON string?</p>
+<p><strong>Answer:</strong> You can read or update single fields atomically without rewriting the whole value</p>
+<p>Hash fields are flat strings.</p>
+<p><strong>Q19.</strong> Why can HGETALL on a huge hash be a problem?</p>
+<p><strong>Answer:</strong> It returns every field in one blocking call; use HSCAN for large hashes</p>
+<p>Large replies take time and bandwidth.</p>
+<p><strong>Q20.</strong> Which command increments a numeric field inside a hash atomically?</p>
+<p><strong>Answer:</strong> HINCRBY</p>
+<p>HINCRBYFLOAT is the floating-point version.</p>
+<h3 id="06-lists-queues-stacks-blocking-pops"><a href="../level-1/06-lists-queues/">06 · Lists: Queues, Stacks &amp; Blocking Pops</a><a class="headerlink" href="#06-lists-queues-stacks-blocking-pops" title="Permanent link">&para;</a></h3>
+<p><strong>Q21.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>RPUSH q a b c
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>LPOP q
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>LRANGE q 0 -1
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>LLEN q
+</code></pre></div>
+<p><strong>Answer:</strong> 3
+a
+b
+c
+2</p>
+<p>RPUSH + LPOP gives FIFO order; LRANGE after the pop shows b and c, so the length is 2. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q22.</strong> Which command blocks until an item is available?</p>
+<p><strong>Answer:</strong> BLPOP (or BRPOP)</p>
+<p>Workers use blocking pops to wait for jobs without polling.</p>
+<p><strong>Q23.</strong> How do you keep only the latest 100 items in a list?</p>
+<p><strong>Answer:</strong> LPUSH followed by LTRIM key 0 99</p>
+<p>LTRIM keeps a range.</p>
+<p><strong>Q24.</strong> What is a drawback of a plain list as a job queue?</p>
+<p><strong>Answer:</strong> A popped job is gone if the worker crashes before finishing, so reliable queues use LMOVE or streams</p>
+<p>Reliable patterns move the job to a processing list.</p>
+<h3 id="07-sets-membership-set-algebra-random-picks"><a href="../level-1/07-sets/">07 · Sets: Membership, Set Algebra &amp; Random Picks</a><a class="headerlink" href="#07-sets-membership-set-algebra-random-picks" title="Permanent link">&para;</a></h3>
+<p><strong>Q25.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>SADD s a b c
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>SADD s a
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>SISMEMBER s b
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>SCARD s
+</code></pre></div>
+<p><strong>Answer:</strong> 3
+0
+1
+3</p>
+<p>Sets ignore duplicates; SADD returns the number of new members. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q26.</strong> What does SINTER return for these sets (sorted for stability)?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>SADD a 1 2 3
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>SADD b 2 3 4
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>SINTER a b
+</code></pre></div>
+<p><strong>Answer:</strong> 3
+3
+2
+3</p>
+<p>The intersection of {1,2,3} and {2,3,4} is {2,3}. The first two lines are the SADD counts. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q27.</strong> Which structure fits 'unique visitors of a page'?</p>
+<p><strong>Answer:</strong> A set (or a HyperLogLog if approximate is fine)</p>
+<p>Sets give exact uniqueness at a memory cost.</p>
+<p><strong>Q28.</strong> What does SPOP do?</p>
+<p><strong>Answer:</strong> Removes and returns random member(s)</p>
+<p>SRANDMEMBER returns without removing.</p>
+<h3 id="08-sorted-sets-rankings-ranges-time-windows"><a href="../level-1/08-sorted-sets/">08 · Sorted Sets: Rankings, Ranges &amp; Time Windows</a><a class="headerlink" href="#08-sorted-sets-rankings-ranges-time-windows" title="Permanent link">&para;</a></h3>
+<p><strong>Q29.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ZADD board 100 ana 250 bo 175 cy
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ZREVRANGE board 0 1 WITHSCORES
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>ZRANK board ana
+</code></pre></div>
+<p><strong>Answer:</strong> 3
+bo
+250
+cy
+175
+0</p>
+<p>ZREVRANGE lists highest first; ZRANK is the 0-based ascending rank of ana, who has the lowest score. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q30.</strong> How are members with equal scores ordered?</p>
+<p><strong>Answer:</strong> Lexicographically by member</p>
+<p>Sorted sets order by score, then member.</p>
+<p><strong>Q31.</strong> Which command adds to a member's score atomically?</p>
+<p><strong>Answer:</strong> ZINCRBY</p>
+<p>Ideal for leaderboards.</p>
+<p><strong>Q32.</strong> What are sorted sets best for?</p>
+<p><strong>Answer:</strong> Leaderboards, priority queues and time-ordered indexes</p>
+<p>Skiplist plus hash give O(log N) updates.</p>
+<h3 id="09-clients-redis-py-node-redis"><a href="../level-1/09-clients-python-node/">09 · Clients: redis-py &amp; node-redis</a><a class="headerlink" href="#09-clients-redis-py-node-redis" title="Permanent link">&para;</a></h3>
+<p><strong>Q33.</strong> Why should an application create one Redis client or pool and reuse it?</p>
+<p><strong>Answer:</strong> Opening a connection per request is slow and exhausts server connections</p>
+<p>Share a client or a connection pool.</p>
+<p><strong>Q34.</strong> In redis-py, what does decode_responses=True do?</p>
+<p><strong>Answer:</strong> Returns str instead of bytes</p>
+<p>Otherwise values arrive as bytes.</p>
+<p><strong>Q35.</strong> What should a client do when Redis is temporarily unavailable?</p>
+<p><strong>Answer:</strong> Use timeouts and retries with backoff, and decide on a fallback</p>
+<p>Cache failures should degrade gracefully.</p>
+<p><strong>Q36.</strong> Which are well-known Node.js Redis clients?</p>
+<p><strong>Answer:</strong> node-redis and ioredis</p>
+<p>Both support promises.</p>
+<h3 id="10-project-url-shortener-with-click-analytics"><a href="../level-1/10-project-url-shortener/">10 · Project — URL Shortener with Click Analytics</a><a class="headerlink" href="#10-project-url-shortener-with-click-analytics" title="Permanent link">&para;</a></h3>
+<p><strong>Q37.</strong> Why use INCR to generate short-URL IDs?</p>
+<p><strong>Answer:</strong> It is atomic, so concurrent requests never get the same ID</p>
+<p>Then encode the number in base62.</p>
+<p><strong>Q38.</strong> How do you avoid overwriting an existing custom alias?</p>
+<p><strong>Answer:</strong> SET alias target NX and check the reply</p>
+<p>NX makes the check-and-set atomic.</p>
+<p><strong>Q39.</strong> Where would you count clicks per short link?</p>
+<p><strong>Answer:</strong> HINCRBY on a hash or INCR on a counter key</p>
+<p>Counters are atomic.</p>
+<p><strong>Q40.</strong> How do you let links expire?</p>
+<p><strong>Answer:</strong> Set a TTL with EXPIRE or SET ... EX</p>
+<p>Redis removes expired keys itself.</p>
+<h2 id="level-2-data-structures-in-depth">Level 2 · Data Structures in Depth<a class="headerlink" href="#level-2-data-structures-in-depth" title="Permanent link">&para;</a></h2>
+<h3 id="01-encodings-memory"><a href="../level-2/01-encodings-memory/">01 · Encodings &amp; Memory</a><a class="headerlink" href="#01-encodings-memory" title="Permanent link">&para;</a></h3>
+<p><strong>Q41.</strong> What encoding does a small integer string use?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>SET n 42
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>OBJECT ENCODING n
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>SET s hello
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>OBJECT ENCODING s
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+int
+OK
+embstr</p>
+<p>Integers are stored as integers; short strings use embstr. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q42.</strong> What encoding does a small hash use?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>HSET h a 1 b 2
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>OBJECT ENCODING h
+</code></pre></div>
+<p><strong>Answer:</strong> 2
+listpack</p>
+<p>Small collections use a compact listpack; large ones switch to hash tables. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q43.</strong> What does MEMORY USAGE key report?</p>
+<p><strong>Answer:</strong> Approximate bytes used by the key and its value</p>
+<p>Use it to find expensive keys.</p>
+<p><strong>Q44.</strong> Why do many small keys cost more than one hash?</p>
+<p><strong>Answer:</strong> Each key has per-key overhead; small hashes pack fields compactly</p>
+<p>Grouping can save memory.</p>
+<h3 id="02-bitmaps-bitfields"><a href="../level-2/02-bitmaps-bitfields/">02 · Bitmaps &amp; Bitfields</a><a class="headerlink" href="#02-bitmaps-bitfields" title="Permanent link">&para;</a></h3>
+<p><strong>Q45.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>SETBIT visits 7 1
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>SETBIT visits 9 1
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>GETBIT visits 7
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>GETBIT visits 8
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>BITCOUNT visits
+</code></pre></div>
+<p><strong>Answer:</strong> 0
+0
+1
+0
+2</p>
+<p>SETBIT returns the old bit value; BITCOUNT counts set bits. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q46.</strong> Why are bitmaps good for daily active users?</p>
+<p><strong>Answer:</strong> One bit per user ID gives exact per-day sets at tiny memory, and BITOP combines days</p>
+<p>User IDs must be small integers.</p>
+<p><strong>Q47.</strong> What does BITOP AND do across two day bitmaps?</p>
+<p><strong>Answer:</strong> Finds users active on both days</p>
+<p>OR would give either day.</p>
+<p><strong>Q48.</strong> What does BITFIELD let you do?</p>
+<p><strong>Answer:</strong> Read and write several fixed-width integers packed inside a string</p>
+<p>Useful for compact counters.</p>
+<h3 id="03-hyperloglog-bloom-filters-other-sketches"><a href="../level-2/03-hyperloglog-probabilistic/">03 · HyperLogLog, Bloom Filters &amp; Other Sketches</a><a class="headerlink" href="#03-hyperloglog-bloom-filters-other-sketches" title="Permanent link">&para;</a></h3>
+<p><strong>Q49.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>PFADD v a b c a b
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>PFCOUNT v
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>PFADD v a
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>PFCOUNT v
+</code></pre></div>
+<p><strong>Answer:</strong> 1
+3
+0
+3</p>
+<p>HyperLogLog counts distinct elements; re-adding existing ones changes nothing. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q50.</strong> What is HyperLogLog's trade-off?</p>
+<p><strong>Answer:</strong> About 0.81% standard error in exchange for a fixed size of up to about 12 KB</p>
+<p>You cannot list the members.</p>
+<p><strong>Q51.</strong> Can you merge HyperLogLogs?</p>
+<p><strong>Answer:</strong> Yes with PFMERGE, giving the unique count of the union</p>
+<p>Useful for daily to monthly roll-ups.</p>
+<p><strong>Q52.</strong> When is exact counting still necessary?</p>
+<p><strong>Answer:</strong> When you must list members or the count drives billing or security</p>
+<p>Approximate for analytics, exact for money.</p>
+<h3 id="04-geospatial-indexes"><a href="../level-2/04-geospatial/">04 · Geospatial Indexes</a><a class="headerlink" href="#04-geospatial-indexes" title="Permanent link">&para;</a></h3>
+<p><strong>Q53.</strong> Which order do GEOADD and GEOSEARCH use for coordinates?</p>
+<p><strong>Answer:</strong> Longitude first, then latitude</p>
+<p>A frequent source of swapped-map bugs.</p>
+<p><strong>Q54.</strong> How is geo data stored?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>GEOADD places 13.361389 38.115556 palermo 15.087269 37.502669 catania
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>TYPE places
+</code></pre></div>
+<p><strong>Answer:</strong> 2
+zset</p>
+<p>Geo members are stored in a sorted set using a geohash as the score. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q55.</strong> Which command finds members within a radius or box?</p>
+<p><strong>Answer:</strong> GEOSEARCH</p>
+<p>It replaced GEORADIUS.</p>
+<p><strong>Q56.</strong> Can you remove a geo member with ZREM?</p>
+<p><strong>Answer:</strong> Yes, because it is a sorted set</p>
+<p>There is no GEODEL.</p>
+<h3 id="05-streams-an-append-only-log"><a href="../level-2/05-streams-basics/">05 · Streams: An Append-Only Log</a><a class="headerlink" href="#05-streams-an-append-only-log" title="Permanent link">&para;</a></h3>
+<p><strong>Q57.</strong> What does this print for entry IDs and length?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>XADD s 1-1 temp 20
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>XADD s 1-2 temp 21
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>XLEN s
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>XRANGE s - + COUNT 1
+</code></pre></div>
+<p><strong>Answer:</strong> 1-1
+1-2
+2
+1-1
+temp
+20</p>
+<p>IDs are millisecondTime-sequence; XRANGE - + returns oldest first. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q58.</strong> What does XADD key * field value generate?</p>
+<p><strong>Answer:</strong> An auto-generated, increasing ID</p>
+<p>Use explicit IDs only for imports.</p>
+<p><strong>Q59.</strong> How do you cap a stream's memory?</p>
+<p><strong>Answer:</strong> XTRIM (or MAXLEN on XADD)</p>
+<p>Approximate trimming with ~ is cheaper.</p>
+<p><strong>Q60.</strong> How does a stream differ from a list queue?</p>
+<p><strong>Answer:</strong> It keeps entries after reading, supports IDs, ranges and consumer groups</p>
+<p>Streams are an append-only log.</p>
+<h3 id="06-stream-consumer-groups-recovery"><a href="../level-2/06-streams-consumer-groups/">06 · Stream Consumer Groups &amp; Recovery</a><a class="headerlink" href="#06-stream-consumer-groups-recovery" title="Permanent link">&para;</a></h3>
+<p><strong>Q61.</strong> What does a consumer group give you?</p>
+<p><strong>Answer:</strong> Each entry is delivered to one consumer of the group, with acknowledgement tracking</p>
+<p>Use XREADGROUP.</p>
+<p><strong>Q62.</strong> What is the pending entries list (PEL)?</p>
+<p><strong>Answer:</strong> Entries delivered to a consumer but not yet acknowledged with XACK</p>
+<p>Inspect with XPENDING.</p>
+<p><strong>Q63.</strong> A consumer crashed with unacked messages. How do other consumers take over?</p>
+<p><strong>Answer:</strong> XAUTOCLAIM or XCLAIM entries idle longer than a threshold</p>
+<p>This gives at-least-once processing.</p>
+<p><strong>Q64.</strong> Why must handlers be idempotent with consumer groups?</p>
+<p><strong>Answer:</strong> Entries can be redelivered after failures, so processing may happen more than once</p>
+<p>At-least-once, not exactly-once.</p>
+<h3 id="07-pubsub-sharded-pubsub-keyspace-notifications"><a href="../level-2/07-pubsub-notifications/">07 · Pub/Sub, Sharded Pub/Sub &amp; Keyspace Notifications</a><a class="headerlink" href="#07-pubsub-sharded-pubsub-keyspace-notifications" title="Permanent link">&para;</a></h3>
+<p><strong>Q65.</strong> Is Pub/Sub durable?</p>
+<p><strong>Answer:</strong> No: a message is delivered only to currently connected subscribers and is not stored</p>
+<p>Use streams when you need replay.</p>
+<p><strong>Q66.</strong> A subscriber disconnects for a minute. What happens to messages published meanwhile?</p>
+<p><strong>Answer:</strong> It misses them</p>
+<p>Fire-and-forget.</p>
+<p><strong>Q67.</strong> Are keyspace notifications enabled by default?</p>
+<p><strong>Answer:</strong> No, you enable them with notify-keyspace-events</p>
+<p>They also have overhead and are best-effort.</p>
+<p><strong>Q68.</strong> Which command publishes a message?</p>
+<p><strong>Answer:</strong> PUBLISH channel message</p>
+<p>It returns the number of receiving subscribers.</p>
+<h3 id="08-transactions-multi-exec-watch"><a href="../level-2/08-transactions-watch/">08 · Transactions: MULTI, EXEC &amp; WATCH</a><a class="headerlink" href="#08-transactions-multi-exec-watch" title="Permanent link">&para;</a></h3>
+<p><strong>Q69.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>MULTI
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>SET a 1
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>INCR a
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>EXEC
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+QUEUED
+QUEUED
+OK
+2</p>
+<p>Commands are queued and executed together; EXEC returns one reply per command. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q70.</strong> What happens if one command in a transaction fails at runtime?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>SET s x
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>MULTI
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>INCR s
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>SET ok 1
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>EXEC
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>GET ok
+</code></pre></div>
+<p><strong>Answer:</strong> OK
+OK
+QUEUED
+QUEUED
+ERR value is not an integer or out of range</p>
+<p>OK
+1</p>
+<p>Redis does not roll back: the failing command returns an error and the others still run. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q71.</strong> What does WATCH implement?</p>
+<p><strong>Answer:</strong> Optimistic locking: EXEC aborts if a watched key changed</p>
+<p>Retry the transaction when EXEC returns nil.</p>
+<p><strong>Q72.</strong> Are MULTI/EXEC transactions isolated from other clients' commands?</p>
+<p><strong>Answer:</strong> Yes, other commands never run in the middle of EXEC</p>
+<p>But there is no rollback.</p>
+<h3 id="09-lua-scripts-redis-functions"><a href="../level-2/09-lua-functions/">09 · Lua Scripts &amp; Redis Functions</a><a class="headerlink" href="#09-lua-scripts-redis-functions" title="Permanent link">&para;</a></h3>
+<p><strong>Q73.</strong> What does this Lua script return?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>EVAL "return redis.call('INCRBY', KEYS[1], ARGV[1])" 1 counter 5
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>EVAL "return redis.call('INCRBY', KEYS[1], ARGV[1])" 1 counter 3
+</code></pre></div>
+<p><strong>Answer:</strong> 5
+8</p>
+<p>The script runs atomically; KEYS and ARGV carry key names and arguments. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q74.</strong> Why pass key names through KEYS instead of hard-coding them?</p>
+<p><strong>Answer:</strong> So the server (and cluster) know which keys the script touches</p>
+<p>Required for cluster routing.</p>
+<p><strong>Q75.</strong> What is the risk of a long-running script?</p>
+<p><strong>Answer:</strong> It blocks the whole server while it runs</p>
+<p>Keep scripts short.</p>
+<p><strong>Q76.</strong> How do Redis Functions differ from EVAL?</p>
+<p><strong>Answer:</strong> Functions are named, loaded libraries that persist and replicate with the data</p>
+<p>FUNCTION LOAD.</p>
+<h3 id="10-project-game-leaderboard-activity-feed"><a href="../level-2/10-project-leaderboard-feed/">10 · Project — Game Leaderboard &amp; Activity Feed</a><a class="headerlink" href="#10-project-game-leaderboard-activity-feed" title="Permanent link">&para;</a></h3>
+<p><strong>Q77.</strong> How would you build a leaderboard that returns the top 10 and a user's rank?</p>
+<p><strong>Answer:</strong> A sorted set with ZREVRANGE for the top 10 and ZREVRANK for the user</p>
+<p>Both are O(log N).</p>
+<p><strong>Q78.</strong> Why combine a sorted set with a hash in the project?</p>
+<p><strong>Answer:</strong> The sorted set ranks IDs, the hash holds each player's details</p>
+<p>Keep rank data separate from the profile.</p>
+<p><strong>Q79.</strong> How would you build a bounded activity feed per user?</p>
+<p><strong>Answer:</strong> LPUSH/XADD then LTRIM or XTRIM to cap size</p>
+<p>Cap to protect memory.</p>
+<p><strong>Q80.</strong> When should the feed use a stream instead of a list?</p>
+<p><strong>Answer:</strong> When you need IDs, ranges by time and consumer groups</p>
+<p>Streams are a log.</p>
+<h2 id="level-3-caching-application-patterns">Level 3 · Caching &amp; Application Patterns<a class="headerlink" href="#level-3-caching-application-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="01-caching-patterns-cache-aside-to-write-behind"><a href="../level-3/01-caching-patterns/">01 · Caching Patterns: Cache-Aside to Write-Behind</a><a class="headerlink" href="#01-caching-patterns-cache-aside-to-write-behind" title="Permanent link">&para;</a></h3>
+<p><strong>Q81.</strong> What is the cache-aside pattern?</p>
+<p><strong>Answer:</strong> The app reads the cache first, on a miss loads from the database and writes the value into the cache</p>
+<p>The application owns the logic.</p>
+<p><strong>Q82.</strong> What is write-through?</p>
+<p><strong>Answer:</strong> Writes go to the cache and the database together so the cache stays current</p>
+<p>Write-behind delays the database write.</p>
+<p><strong>Q83.</strong> Why always set a TTL on cache entries?</p>
+<p><strong>Answer:</strong> To bound staleness and memory, even if invalidation is missed</p>
+<p>TTL is the safety net.</p>
+<p><strong>Q84.</strong> What is negative caching?</p>
+<p><strong>Answer:</strong> Caching 'not found' results briefly to avoid repeated expensive misses</p>
+<p>Use a short TTL.</p>
+<h3 id="02-maxmemory-eviction-how-expiry-really-works"><a href="../level-3/02-eviction-expiry-internals/">02 · maxmemory, Eviction &amp; How Expiry Really Works</a><a class="headerlink" href="#02-maxmemory-eviction-how-expiry-really-works" title="Permanent link">&para;</a></h3>
+<p><strong>Q85.</strong> What does maxmemory-policy allkeys-lru do when memory is full?</p>
+<p><strong>Answer:</strong> Evicts the least recently used keys from all keys</p>
+<p>noeviction rejects writes instead.</p>
+<p><strong>Q86.</strong> Which policy evicts only keys that have an expiry?</p>
+<p><strong>Answer:</strong> The volatile-* policies such as volatile-lru or volatile-ttl</p>
+<p>If nothing is evictable, writes fail.</p>
+<p><strong>Q87.</strong> How does Redis expire keys?</p>
+<p><strong>Answer:</strong> Lazily when accessed plus an active background sample of keys with TTLs</p>
+<p>Expired keys may linger briefly.</p>
+<p><strong>Q88.</strong> Is Redis' LRU exact?</p>
+<p><strong>Answer:</strong> No, it samples a few keys and approximates LRU</p>
+<p>maxmemory-samples tunes accuracy.</p>
+<h3 id="03-cache-stampedes-invalidation"><a href="../level-3/03-stampedes-invalidation/">03 · Cache Stampedes &amp; Invalidation</a><a class="headerlink" href="#03-cache-stampedes-invalidation" title="Permanent link">&para;</a></h3>
+<p><strong>Q89.</strong> What is a cache stampede?</p>
+<p><strong>Answer:</strong> Many requests miss at once for a hot key and all hit the database</p>
+<p>Often when a popular key expires.</p>
+<p><strong>Q90.</strong> Which technique reduces stampedes?</p>
+<p><strong>Answer:</strong> Single-flight locking or request coalescing, plus TTL jitter and early refresh</p>
+<p>Only one request rebuilds the value.</p>
+<p><strong>Q91.</strong> Why add random jitter to TTLs?</p>
+<p><strong>Answer:</strong> So many keys do not all expire at the same moment</p>
+<p>Spread the load.</p>
+<p><strong>Q92.</strong> What is a clean way to invalidate many related keys at once?</p>
+<p><strong>Answer:</strong> Include a version number in the key and bump it</p>
+<p>Old versions simply expire.</p>
+<h3 id="04-rate-limiting-algorithms"><a href="../level-3/04-rate-limiting/">04 · Rate Limiting Algorithms</a><a class="headerlink" href="#04-rate-limiting-algorithms" title="Permanent link">&para;</a></h3>
+<p><strong>Q93.</strong> What does a fixed-window counter print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>INCR rl:user1
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>EXPIRE rl:user1 60
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>INCR rl:user1
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>INCR rl:user1
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>TTL rl:user1
+</code></pre></div>
+<p><strong>Answer:</strong> 1
+1
+2
+3
+60</p>
+<p>INCR counts requests; the EXPIRE gives the window. (TTL may read 59 on a slow machine.) Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q94.</strong> What is the weakness of a fixed-window limiter?</p>
+<p><strong>Answer:</strong> A client can send a burst at the end of one window and the start of the next</p>
+<p>Sliding windows fix it.</p>
+<p><strong>Q95.</strong> How does a sliding-window limiter with a sorted set work?</p>
+<p><strong>Answer:</strong> Add each request timestamp, remove old ones with ZREMRANGEBYSCORE and count with ZCARD</p>
+<p>Run it atomically.</p>
+<p><strong>Q96.</strong> Why is a Lua script (or MULTI) useful for rate limiting?</p>
+<p><strong>Answer:</strong> The check-and-increment must be atomic or concurrent requests slip through</p>
+<p>Avoid read-modify-write races.</p>
+<h3 id="05-distributed-locks-their-limits"><a href="../level-3/05-distributed-locks/">05 · Distributed Locks &amp; Their Limits</a><a class="headerlink" href="#05-distributed-locks-their-limits" title="Permanent link">&para;</a></h3>
+<p><strong>Q97.</strong> What is the correct way to acquire a simple lock?</p>
+<p><strong>Answer:</strong> SET lock:key &lt;unique token&gt; NX PX &lt;ttl&gt;</p>
+<p>NX plus an expiry in one atomic command.</p>
+<p><strong>Q98.</strong> Why release a lock with a script that checks the token?</p>
+<p><strong>Answer:</strong> So you never delete a lock that expired and is now held by another client</p>
+<p>Compare the value, then DEL, atomically.</p>
+<p><strong>Q99.</strong> What is a fencing token for?</p>
+<p><strong>Answer:</strong> A monotonically increasing number the protected resource checks so stale lock holders are rejected</p>
+<p>Locks with TTLs can expire during pauses.</p>
+<p><strong>Q100.</strong> When is a Redis lock NOT safe enough?</p>
+<p><strong>Answer:</strong> When correctness (not just efficiency) depends on it, because of expiry, failover and clock issues</p>
+<p>Use the database or a consensus system for strict guarantees.</p>
+<h3 id="06-sessions-client-side-caching"><a href="../level-3/06-sessions-client-caching/">06 · Sessions &amp; Client-Side Caching</a><a class="headerlink" href="#06-sessions-client-side-caching" title="Permanent link">&para;</a></h3>
+<p><strong>Q101.</strong> How would you store a web session?</p>
+<p><strong>Answer:</strong> A hash or string under a random session ID with a TTL that refreshes on activity</p>
+<p>Sliding expiration with EXPIRE.</p>
+<p><strong>Q102.</strong> What does CLIENT TRACKING enable?</p>
+<p><strong>Answer:</strong> Server-assisted client-side caching with invalidation messages</p>
+<p>The server tells the client when a key changed.</p>
+<p><strong>Q103.</strong> Why is a random, unguessable session ID important?</p>
+<p><strong>Answer:</strong> Guessable IDs let attackers hijack sessions</p>
+<p>Use a secure random generator.</p>
+<p><strong>Q104.</strong> What belongs in a session?</p>
+<p><strong>Answer:</strong> Small identifiers and flags, not large data</p>
+<p>Keep sessions small.</p>
+<h3 id="07-reliable-job-queues"><a href="../level-3/07-job-queues/">07 · Reliable Job Queues</a><a class="headerlink" href="#07-reliable-job-queues" title="Permanent link">&para;</a></h3>
+<p><strong>Q105.</strong> Why is LMOVE/BLMOVE useful for a reliable queue?</p>
+<p><strong>Answer:</strong> It atomically moves a job to a processing list so it is not lost if the worker crashes</p>
+<p>Requeue jobs stuck in processing.</p>
+<p><strong>Q106.</strong> What do libraries such as BullMQ or RQ add?</p>
+<p><strong>Answer:</strong> Retries, delays, priorities and visibility into jobs on top of Redis</p>
+<p>Do not reinvent them.</p>
+<p><strong>Q107.</strong> How do you delay a job?</p>
+<p><strong>Answer:</strong> Store it in a sorted set scored by run time and move due jobs to the queue</p>
+<p>Poll ZRANGEBYSCORE.</p>
+<p><strong>Q108.</strong> What happens to jobs that keep failing?</p>
+<p><strong>Answer:</strong> Move them to a dead-letter list after a retry limit</p>
+<p>Inspect and fix them.</p>
+<h3 id="08-json-documents"><a href="../level-3/08-json-documents/">08 · JSON Documents</a><a class="headerlink" href="#08-json-documents" title="Permanent link">&para;</a></h3>
+<p><strong>Q109.</strong> What does JSON.SET let you do?</p>
+<p><strong>Answer:</strong> Store a JSON document and read or update a nested path atomically</p>
+<p>Redis 8 includes JSON as part of the core.</p>
+<p><strong>Q110.</strong> Why use JSON.NUMINCRBY on a path?</p>
+<p><strong>Answer:</strong> Atomically update a nested number without rewriting the document</p>
+<p>Path-based updates.</p>
+<p><strong>Q111.</strong> When is a hash a better choice than JSON?</p>
+<p><strong>Answer:</strong> For flat objects with simple fields</p>
+<p>Hashes are simpler and lighter.</p>
+<p><strong>Q112.</strong> How do you index JSON for queries?</p>
+<p><strong>Answer:</strong> Create a search index over JSON paths with FT.CREATE</p>
+<p>Then query with FT.SEARCH.</p>
+<h3 id="09-query-engine-secondary-indexes-vector-search"><a href="../level-3/09-search-vector/">09 · Query Engine: Secondary Indexes &amp; Vector Search</a><a class="headerlink" href="#09-query-engine-secondary-indexes-vector-search" title="Permanent link">&para;</a></h3>
+<p><strong>Q113.</strong> What does FT.CREATE do?</p>
+<p><strong>Answer:</strong> Defines a secondary index over documents with a given prefix and schema</p>
+<p>Then use FT.SEARCH.</p>
+<p><strong>Q114.</strong> What is KNN vector search?</p>
+<p><strong>Answer:</strong> Finding the K stored vectors closest to a query vector</p>
+<p>Used for similarity and embeddings.</p>
+<p><strong>Q115.</strong> What is the trade-off between FLAT and HNSW vector indexes?</p>
+<p><strong>Answer:</strong> FLAT is exact but scans everything; HNSW is approximate but much faster at scale</p>
+<p>Pick by dataset size and recall needs.</p>
+<p><strong>Q116.</strong> What must stay consistent between stored vectors and the query?</p>
+<p><strong>Answer:</strong> Dimension and embedding model (and the distance metric)</p>
+<p>Mixed models give meaningless distances.</p>
+<h3 id="10-project-caching-rate-limiting-layer-for-an-api"><a href="../level-3/10-project-api-cache-limiter/">10 · Project — Caching &amp; Rate-Limiting Layer for an API</a><a class="headerlink" href="#10-project-caching-rate-limiting-layer-for-an-api" title="Permanent link">&para;</a></h3>
+<p><strong>Q117.</strong> In the API cache and limiter project, which layer should reject excess traffic?</p>
+<p><strong>Answer:</strong> The limiter, before the cache or database are touched</p>
+<p>Protect expensive work first.</p>
+<p><strong>Q118.</strong> How does the project avoid caching errors forever?</p>
+<p><strong>Answer:</strong> Use short TTLs for errors or do not cache them</p>
+<p>Errors are often transient.</p>
+<p><strong>Q119.</strong> Why add metrics for cache hit ratio?</p>
+<p><strong>Answer:</strong> To know whether the cache is helping and tune TTLs</p>
+<p>Hits divided by hits plus misses.</p>
+<p><strong>Q120.</strong> What is a sensible fallback if Redis is down?</p>
+<p><strong>Answer:</strong> Serve directly from the source and fail open or closed deliberately for the limiter</p>
+<p>Decide per feature.</p>
+<h2 id="level-4-operations-production">Level 4 · Operations &amp; Production<a class="headerlink" href="#level-4-operations-production" title="Permanent link">&para;</a></h2>
+<h3 id="01-persistence-i-rdb-snapshots-fork"><a href="../level-4/01-rdb-snapshots/">01 · Persistence I: RDB Snapshots &amp; fork()</a><a class="headerlink" href="#01-persistence-i-rdb-snapshots-fork" title="Permanent link">&para;</a></h3>
+<p><strong>Q121.</strong> What is an RDB file?</p>
+<p><strong>Answer:</strong> A compact point-in-time snapshot of the dataset</p>
+<p>Created by SAVE, BGSAVE or save rules.</p>
+<p><strong>Q122.</strong> How does BGSAVE avoid blocking clients?</p>
+<p><strong>Answer:</strong> It forks a child process that writes the snapshot</p>
+<p>Copy-on-write memory can spike.</p>
+<p><strong>Q123.</strong> What can you lose with RDB-only persistence?</p>
+<p><strong>Answer:</strong> Writes since the last snapshot</p>
+<p>Snapshots are periodic.</p>
+<p><strong>Q124.</strong> Why are RDB files good for backups and restarts?</p>
+<p><strong>Answer:</strong> They are compact and load fast</p>
+<p>Copy them off-box.</p>
+<h3 id="02-persistence-ii-aof-fsync-hybrid-persistence"><a href="../level-4/02-aof-durability/">02 · Persistence II: AOF, fsync &amp; Hybrid Persistence</a><a class="headerlink" href="#02-persistence-ii-aof-fsync-hybrid-persistence" title="Permanent link">&para;</a></h3>
+<p><strong>Q125.</strong> What does appendfsync everysec risk?</p>
+<p><strong>Answer:</strong> Up to about one second of writes after a crash</p>
+<p>A common balance.</p>
+<p><strong>Q126.</strong> What does appendfsync always do?</p>
+<p><strong>Answer:</strong> fsync after every write command: safest and slowest</p>
+<p>Throughput drops.</p>
+<p><strong>Q127.</strong> What is an AOF rewrite?</p>
+<p><strong>Answer:</strong> Compacting the log into the shortest set of commands that rebuilds the dataset</p>
+<p>BGREWRITEAOF.</p>
+<p><strong>Q128.</strong> Why do many production setups use both RDB and AOF?</p>
+<p><strong>Answer:</strong> RDB for fast restarts and backups, AOF for better durability</p>
+<p>Redis can load the AOF on restart.</p>
+<h3 id="03-replication-psync-the-backlog-consistency"><a href="../level-4/03-replication/">03 · Replication: PSYNC, the Backlog &amp; Consistency</a><a class="headerlink" href="#03-replication-psync-the-backlog-consistency" title="Permanent link">&para;</a></h3>
+<p><strong>Q129.</strong> Is Redis replication synchronous by default?</p>
+<p><strong>Answer:</strong> No, it is asynchronous so a failover can lose recent writes</p>
+<p>WAIT can wait for acknowledgements but does not make it strictly consistent.</p>
+<p><strong>Q130.</strong> Which command makes a server a replica?</p>
+<p><strong>Answer:</strong> REPLICAOF host port</p>
+<p>Use REPLICAOF NO ONE to promote.</p>
+<p><strong>Q131.</strong> What does the replication backlog allow?</p>
+<p><strong>Answer:</strong> A reconnecting replica to do a partial resync instead of a full one</p>
+<p>Size it for outages.</p>
+<p><strong>Q132.</strong> Why direct reads to replicas with care?</p>
+<p><strong>Answer:</strong> Replicas can be slightly behind, so reads may be stale</p>
+<p>Read-your-writes is not guaranteed.</p>
+<h3 id="04-high-availability-with-sentinel"><a href="../level-4/04-sentinel/">04 · High Availability with Sentinel</a><a class="headerlink" href="#04-high-availability-with-sentinel" title="Permanent link">&para;</a></h3>
+<p><strong>Q133.</strong> What does Sentinel do?</p>
+<p><strong>Answer:</strong> Monitors masters and replicas and promotes a replica when the master fails</p>
+<p>It also tells clients the current master.</p>
+<p><strong>Q134.</strong> Why run at least three Sentinels?</p>
+<p><strong>Answer:</strong> A majority must agree to avoid split-brain decisions</p>
+<p>Use odd numbers on separate failure domains.</p>
+<p><strong>Q135.</strong> What is the Sentinel quorum?</p>
+<p><strong>Answer:</strong> The number of Sentinels that must agree the master is down</p>
+<p>A majority is still needed to authorise the failover.</p>
+<p><strong>Q136.</strong> How should clients find the master with Sentinel?</p>
+<p><strong>Answer:</strong> Ask Sentinel for the current master address (use a Sentinel-aware client)</p>
+<p>The address changes after failover.</p>
+<h3 id="05-redis-cluster-hash-slots-moved-ask"><a href="../level-4/05-cluster-architecture/">05 · Redis Cluster: Hash Slots, MOVED &amp; ASK</a><a class="headerlink" href="#05-redis-cluster-hash-slots-moved-ask" title="Permanent link">&para;</a></h3>
+<p><strong>Q137.</strong> How many hash slots does Redis Cluster have?</p>
+<p><strong>Answer:</strong> 16384</p>
+<p>Keys map by CRC16(key) mod 16384.</p>
+<p><strong>Q138.</strong> What does a hash tag like {user42} do?</p>
+<p><strong>Answer:</strong> Only the text inside braces is hashed, so related keys land in the same slot</p>
+<p>Needed for multi-key operations.</p>
+<p><strong>Q139.</strong> What does MOVED mean?</p>
+<p><strong>Answer:</strong> The key lives on another node; the client should update its slot map and retry there</p>
+<p>Cluster clients cache the map.</p>
+<p><strong>Q140.</strong> Why do multi-key commands need the same slot?</p>
+<p><strong>Answer:</strong> Each node only holds some slots and cannot atomically operate across nodes</p>
+<p>Otherwise CROSSSLOT error.</p>
+<h3 id="06-cluster-operations-resharding-scaling-failover"><a href="../level-4/06-cluster-operations/">06 · Cluster Operations: Resharding, Scaling &amp; Failover</a><a class="headerlink" href="#06-cluster-operations-resharding-scaling-failover" title="Permanent link">&para;</a></h3>
+<p><strong>Q141.</strong> What does ASK mean during a migration?</p>
+<p><strong>Answer:</strong> The key is being moved; ask the target node once without updating the slot map</p>
+<p>Unlike MOVED, it is temporary.</p>
+<p><strong>Q142.</strong> Which tool manages cluster creation and resharding?</p>
+<p><strong>Answer:</strong> redis-cli --cluster</p>
+<p>Also CLUSTER NODES to inspect.</p>
+<p><strong>Q143.</strong> What should happen before removing a node?</p>
+<p><strong>Answer:</strong> Reshard its slots to other nodes, then remove it</p>
+<p>An empty primary can be deleted.</p>
+<p><strong>Q144.</strong> What is needed for cluster failover to work?</p>
+<p><strong>Answer:</strong> Replicas for each primary and a majority of primaries reachable</p>
+<p>Cluster has its own failover.</p>
+<h3 id="07-security-acls-protected-mode-tls"><a href="../level-4/07-security-acl-tls/">07 · Security: ACLs, Protected Mode &amp; TLS</a><a class="headerlink" href="#07-security-acls-protected-mode-tls" title="Permanent link">&para;</a></h3>
+<p><strong>Q145.</strong> Why never expose Redis directly to the internet?</p>
+<p><strong>Answer:</strong> It is designed for trusted networks; use a private network, auth and TLS</p>
+<p>Open Redis instances are routinely abused.</p>
+<p><strong>Q146.</strong> What are ACLs?</p>
+<p><strong>Answer:</strong> Per-user rules limiting commands, keys and channels</p>
+<p>ACL SETUSER.</p>
+<p><strong>Q147.</strong> Which is a good practice for the default user?</p>
+<p><strong>Answer:</strong> Disable it or give it a strong password and use named users with least privilege</p>
+<p>Separate app, admin and replica users.</p>
+<p><strong>Q148.</strong> What does TLS protect?</p>
+<p><strong>Answer:</strong> Traffic in transit between clients, replicas and nodes</p>
+<p>Encrypt backups separately.</p>
+<h3 id="08-monitoring-troubleshooting"><a href="../level-4/08-monitoring-troubleshooting/">08 · Monitoring &amp; Troubleshooting</a><a class="headerlink" href="#08-monitoring-troubleshooting" title="Permanent link">&para;</a></h3>
+<p><strong>Q149.</strong> What does SLOWLOG show?</p>
+<p><strong>Answer:</strong> Recent commands that exceeded a time threshold</p>
+<p>Tune slowlog-log-slower-than.</p>
+<p><strong>Q150.</strong> Why avoid MONITOR in production?</p>
+<p><strong>Answer:</strong> It streams every command and adds significant overhead</p>
+<p>Use briefly if at all.</p>
+<p><strong>Q151.</strong> Which INFO fields help detect memory pressure?</p>
+<p><strong>Answer:</strong> used_memory, maxmemory, evicted_keys and fragmentation ratio</p>
+<p>Alert on trends.</p>
+<p><strong>Q152.</strong> How can you find big keys?</p>
+<p><strong>Answer:</strong> redis-cli --bigkeys or --memkeys (and MEMORY USAGE)</p>
+<p>Large keys cause latency spikes.</p>
+<h3 id="09-versions-licensing-valkey-upgrades"><a href="../level-4/09-licensing-valkey-upgrades/">09 · Versions, Licensing, Valkey &amp; Upgrades</a><a class="headerlink" href="#09-versions-licensing-valkey-upgrades" title="Permanent link">&para;</a></h3>
+<p><strong>Q153.</strong> From the shipped license files, which license applies to Redis 7.2 and earlier?</p>
+<p><strong>Answer:</strong> BSD 3-Clause</p>
+<p>Newer versions changed.</p>
+<p><strong>Q154.</strong> What is Valkey?</p>
+<p><strong>Answer:</strong> A BSD-licensed fork of Redis 7.2.4 under the Linux Foundation</p>
+<p>Reports redis_version 7.2.4 for compatibility.</p>
+<p><strong>Q155.</strong> Why can't you assume RDB files are portable between Redis and Valkey?</p>
+<p><strong>Answer:</strong> Newer versions use incompatible RDB formats</p>
+<p>Test migrations.</p>
+<p><strong>Q156.</strong> What is a safe upgrade approach?</p>
+<p><strong>Answer:</strong> Test in staging, upgrade replicas first, fail over, then upgrade the old primary, with backups</p>
+<p>Read the release notes.</p>
+<h3 id="10-capstone-a-secured-persistent-failover-tested-cluster"><a href="../level-4/10-capstone-production-cluster/">10 · Capstone — A Secured, Persistent, Failover-Tested Cluster</a><a class="headerlink" href="#10-capstone-a-secured-persistent-failover-tested-cluster" title="Permanent link">&para;</a></h3>
+<p><strong>Q157.</strong> What is the capstone goal?</p>
+<p><strong>Answer:</strong> A production-style cluster with persistence, security, monitoring and tested failover</p>
+<p>Prove it works.</p>
+<p><strong>Q158.</strong> Which test best proves your HA setup?</p>
+<p><strong>Answer:</strong> Kill a primary and verify automatic failover and client recovery</p>
+<p>Measure data loss and downtime.</p>
+<p><strong>Q159.</strong> What should your runbook cover?</p>
+<p><strong>Answer:</strong> Backups and restore, failover, scaling, upgrades and alerts</p>
+<p>Practice the restore.</p>
+<p><strong>Q160.</strong> Why restore from backup as a test?</p>
+<p><strong>Answer:</strong> A backup you have never restored is not proven</p>
+<p>Verify integrity regularly.</p>
+<h2 id="mixed-questions-across-all-levels">Mixed questions across all levels<a class="headerlink" href="#mixed-questions-across-all-levels" title="Permanent link">&para;</a></h2>
+<p><strong>Q161.</strong> Why is INCR safe for concurrent counters?</p>
+<p><strong>Answer:</strong> Redis executes each command atomically on a single thread, so two clients never read the same old value</p>
+<p>Atomic commands need no client-side locking.</p>
+<p><strong>Q162.</strong> You need 'unique visitors per day' for 50 million users where a 1% error is fine. Which structure?</p>
+<p><strong>Answer:</strong> HyperLogLog (about 12 KB)</p>
+<p>Exact sets cost far more memory.</p>
+<p><strong>Q163.</strong> You need 'did user 1234567 visit today' for 50 million known integer IDs, exactly. Which structure?</p>
+<p><strong>Answer:</strong> A bitmap with one bit per user ID</p>
+<p>Bitmaps answer membership exactly in about 6 MB.</p>
+<p><strong>Q164.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ZADD z 5 a 5 b 3 c
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>ZRANGE z 0 -1
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>ZREVRANK z a
+</code></pre></div>
+<p><strong>Answer:</strong> 3
+c
+a
+b
+1</p>
+<p>Equal scores are ordered lexicographically; ZREVRANK counts from the highest. Verified by running it against a real Redis 8 server.</p>
+<p><strong>Q165.</strong> Which command lets you cap a stream's memory?</p>
+<p><strong>Answer:</strong> XTRIM (or MAXLEN on XADD)</p>
+<p>Streams are append-only logs and must be trimmed.</p>
+<p><strong>Q166.</strong> A consumer in a stream group crashes before XACK. What happens to its messages?</p>
+<p><strong>Answer:</strong> They stay in the pending list and can be claimed by another consumer (at-least-once delivery)</p>
+<p>Handlers must be idempotent.</p>
+<p><strong>Q167.</strong> Why is MULTI/EXEC not a database-style transaction?</p>
+<p><strong>Answer:</strong> A runtime error in one command does not roll back the others</p>
+<p>Redis queues commands and runs them without interleaving, but does not undo.</p>
+<p><strong>Q168.</strong> What does WATCH do?</p>
+<p><strong>Answer:</strong> Aborts the next EXEC if a watched key was modified by another client (optimistic locking)</p>
+<p>Retry on failure.</p>
+<p><strong>Q169.</strong> Which lock acquire command is correct?</p>
+<p><strong>Answer:</strong> SET lock:order:42 &lt;random token&gt; NX PX 30000</p>
+<p>One atomic command with an expiry.</p>
+<p><strong>Q170.</strong> Why is KEYS * banned in production?</p>
+<p><strong>Answer:</strong> It walks the whole keyspace in one blocking call; use SCAN</p>
+<p>SCAN may return duplicates.</p>
+<p><strong>Q171.</strong> What does maxmemory-policy noeviction do when memory is full?</p>
+<p><strong>Answer:</strong> Rejects write commands that need more memory</p>
+<p>Choose an eviction policy for caches.</p>
+<p><strong>Q172.</strong> A hot cache key expires and 5,000 requests hit the database at once. What is this and one fix?</p>
+<p><strong>Answer:</strong> A cache stampede; use single-flight locking or refresh early with TTL jitter</p>
+<p>Only one request should rebuild.</p>
+<p><strong>Q173.</strong> What is the downside of RDB-only persistence?</p>
+<p><strong>Answer:</strong> You can lose writes since the last snapshot</p>
+<p>Add AOF for durability.</p>
+<p><strong>Q174.</strong> What risk does appendfsync everysec carry?</p>
+<p><strong>Answer:</strong> Up to about one second of acknowledged writes can be lost in a crash</p>
+<p>always is safest but slowest.</p>
+<p><strong>Q175.</strong> Why can a failover lose acknowledged writes?</p>
+<p><strong>Answer:</strong> Replication is asynchronous, so the promoted replica may not have the latest writes</p>
+<p>WAIT reduces but does not remove the risk.</p>
+<p><strong>Q176.</strong> Why do you need at least three Sentinels?</p>
+<p><strong>Answer:</strong> A majority must authorise a failover to avoid split-brain</p>
+<p>Place them on separate failure domains.</p>
+<p><strong>Q177.</strong> How are keys assigned to slots in Redis Cluster?</p>
+<p><strong>Answer:</strong> CRC16(key) mod 16384, using only the {hash tag} part if present</p>
+<p>Hash tags enable multi-key operations on one node.</p>
+<p><strong>Q178.</strong> What does a MOVED reply tell the client?</p>
+<p><strong>Answer:</strong> The slot lives on another node; update the slot map and retry there</p>
+<p>ASK is the temporary version during migration.</p>
+<p><strong>Q179.</strong> What is a safe way to protect a Redis server?</p>
+<p><strong>Answer:</strong> Private network, ACL users with least privilege and TLS, never exposed publicly</p>
+<p>Redis assumes a trusted network.</p>
+<p><strong>Q180.</strong> Why should you test restoring a backup?</p>
+<p><strong>Answer:</strong> A backup that has never been restored is unproven</p>
+<p>Practice before an incident.</p>
+<h2 id="practical-coding-questions">Practical coding questions<a class="headerlink" href="#practical-coding-questions" title="Permanent link">&para;</a></h2>
+<h3 id="a-fixed-window-rate-limiter-in-lua">A fixed-window rate limiter in Lua<a class="headerlink" href="#a-fixed-window-rate-limiter-in-lua" title="Permanent link">&para;</a></h3>
+<p>Write a Lua script that atomically counts requests per key, sets a window expiry on the first hit and allows only the first N requests. Use it for two users and inspect the counter and TTL. This runs against a real Redis server with redis-cli.</p>
+<p>Starter code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a># Run these lines with redis-cli against an empty database.
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a># TODO: write a Lua script for EVAL that
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>#   1. INCRs KEYS[1]
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>#   2. sets EXPIRE KEYS[1] ARGV[1] seconds on the first hit only
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>#   3. returns 1 if the count is &lt;= ARGV[2], otherwise 0
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a># Then call it 5 times for rl:ana (60 s window, limit 3), GET rl:ana,
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a># call it once for rl:bo, and finish with TTL rl:bo.
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>1
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>1
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>1
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>0
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>0
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>5
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>1
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>60
+</code></pre></div>
+<p>??? success "Show a solution"</p>
+<div class="highlight"><pre><span></span><code>```
+EVAL "local c = redis.call('INCR', KEYS[1]) if c == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end if c &gt; tonumber(ARGV[2]) then return 0 end return 1" 1 rl:ana 60 3
+EVAL "local c = redis.call('INCR', KEYS[1]) if c == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end if c &gt; tonumber(ARGV[2]) then return 0 end return 1" 1 rl:ana 60 3
+EVAL "local c = redis.call('INCR', KEYS[1]) if c == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end if c &gt; tonumber(ARGV[2]) then return 0 end return 1" 1 rl:ana 60 3
+EVAL "local c = redis.call('INCR', KEYS[1]) if c == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end if c &gt; tonumber(ARGV[2]) then return 0 end return 1" 1 rl:ana 60 3
+EVAL "local c = redis.call('INCR', KEYS[1]) if c == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end if c &gt; tonumber(ARGV[2]) then return 0 end return 1" 1 rl:ana 60 3
+GET rl:ana
+EVAL "local c = redis.call('INCR', KEYS[1]) if c == 1 then redis.call('EXPIRE', KEYS[1], ARGV[1]) end if c &gt; tonumber(ARGV[2]) then return 0 end return 1" 1 rl:bo 60 3
+TTL rl:bo
+```
+
+Doing INCR, EXPIRE and the comparison inside one script makes the check-and-increment atomic, so concurrent requests cannot slip through. Calls 4 and 5 return 0 but still count, so GET shows 5. Verified by running it against Redis 8; your TTL may show 59 if a second passes.
+</code></pre></div>
+<h3 id="a-reliable-job-queue-with-lmove">A reliable job queue with LMOVE<a class="headerlink" href="#a-reliable-job-queue-with-lmove" title="Permanent link">&para;</a></h3>
+<p>Model a queue where a claimed job moves to a processing list, is removed when finished and is returned to the queue if the worker crashes. Run the sequence of commands and compare your output.</p>
+<p>Starter code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a># Reliable queue: a job must not be lost if a worker crashes mid-job.
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a># 1. Enqueue j1, j2, j3 onto the list "jobs".
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a># 2. A worker claims two jobs by moving them to the list "processing" (oldest first, appended at the end).
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a># 3. Show both lists.
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a># 4. The worker finishes j1: remove it from "processing" and show the list.
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a># 5. The worker crashes while handling j2: move it back from "processing" to the end of "jobs", show "jobs".
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a># 6. Finish with the length of "processing".
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>3
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>j1
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>j2
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>j3
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>j1
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>j2
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>1
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>j2
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>j2
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>j3
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>j2
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>0
+</code></pre></div>
+<p>??? success "Show a solution"</p>
+<div class="highlight"><pre><span></span><code>```
+RPUSH jobs j1 j2 j3
+LMOVE jobs processing LEFT RIGHT
+LMOVE jobs processing LEFT RIGHT
+LRANGE jobs 0 -1
+LRANGE processing 0 -1
+LREM processing 1 j1
+LRANGE processing 0 -1
+LMOVE processing jobs LEFT RIGHT
+LRANGE jobs 0 -1
+LLEN processing
+```
+
+LMOVE is atomic, so a job always lives in exactly one list: waiting, processing or (after LREM) done. A crash leaves the job in processing, where a janitor can move it back. Verified by running it against Redis 8.
+</code></pre></div>
+<hr />
+<p>More free practice: the <a href="../">Redis Mastery Path</a> curriculum, the <a href="https://learnmasterypath.com/interview-pack/">Interview Prep Pack</a> and the <a href="https://learnmasterypath.com/resume/">free resume ATS check</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+  
+  <nav class="mp-related" aria-label="Related free courses">
+    <h2>Related free courses</h2>
+    <ul>
+      <li><a href="https://learnmasterypath.com/postgresql-mastery-path/">PostgreSQL</a></li><li><a href="https://learnmasterypath.com/mongodb-mastery-path/">MongoDB</a></li><li><a href="https://learnmasterypath.com/snowflake-mastery-path/">Snowflake</a></li><li><a href="https://learnmasterypath.com/databricks-mastery-path/">Databricks</a></li><li><a href="https://learnmasterypath.com/python-mastery-path/vector-databases-mastery-path/">Vector Databases</a></li>
+      <li><a href="https://learnmasterypath.com/">All 100+ courses &rarr;</a></li>
+    </ul>
+  </nav>
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../cheat-sheet/" class="md-footer__link md-footer__link--next" aria-label="Next: Cheat Sheet">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Cheat Sheet
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  <div class="mp-foot">
+    <div class="mp-foot-inner">
+      <a class="mp-foot-brand" href="https://learnmasterypath.com/"><svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <circle cx="80" cy="80" r="74" fill="#FAF7EF" stroke="#2FA98D" stroke-width="5"/>
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg><span>Mastery Path</span></a>
+      <nav class="mp-sitelinks" aria-label="Site and legal links">
+        <a href="https://learnmasterypath.com/">All courses</a>
+        <a href="https://learnmasterypath.com/about.html">About</a>
+        <a href="https://learnmasterypath.com/contact.html">Contact</a>
+        <a href="https://learnmasterypath.com/redis-mastery-path/privacy/">Privacy Policy</a>
+        <a href="https://learnmasterypath.com/terms.html">Terms</a>
+        <a href="https://learnmasterypath.com/redis-mastery-path/license/">License</a>
+        <a href="https://learnmasterypath.com/verify/">Verify a certificate</a>
+      </nav>
+    </div>
+    <p class="mp-license-note">
+      © 2026 Vinod Kumar Sigilipelli · Except where otherwise noted, lesson content is licensed under
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> and code examples under the
+      <a href="https://opensource.org/license/mit">MIT License</a>.
+    </p>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.path", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/progress-tracker.js"></script>
+      
+        <script src="../javascripts/final-quiz.js"></script>
+      
+    
+  </body>
+</html>
